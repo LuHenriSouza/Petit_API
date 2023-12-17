@@ -6,7 +6,9 @@
   "license": "MIT",
   "private": false,
   "scripts": {
-    "start": "ts-node-dev ./src/index.ts"
+    "production": "node ./build/index.js",
+    "start": "ts-node-dev ./src/index.ts",
+    "postinstall": "tsc"
   },
   "dependencies": {
     "dotenv": "^16.3.1",
@@ -21,5 +23,8 @@
     "eslint": "^8.56.0",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.3.3"
+  },
+  "engines": {
+    "node": "18.x"
   }
 }
