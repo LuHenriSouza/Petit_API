@@ -1,26 +1,33 @@
-import { Request, RequestHandler, Response } from 'express';
+import { Request, Response } from 'express';
 import * as yup from 'yup';
 import { validation } from '../../shared/middleware';
 
+interface IParamProps {
+    id?: number,
+}
+
 interface IBodyProps {
-    code: string,
     name: string,
     sector: number,
     price: number
 }
 
+const paramsValidation: yup.Schema<IParamProps> = yup.object().shape({
+    id: yup.number().integer().required().moreThan(0),
+}); 
+
 const bodyValidation: yup.Schema<IBodyProps> = yup.object().shape({
-    code: yup.string().required().min(1).max(20),
     name: yup.string().required().min(3).max(50),
     sector: yup.number().required().min(1).max(4),
     price: yup.number().required().min(0),
 }); 
 
-export const createValidation = validation({
+export const updateByIdValidation = validation({
+    params: paramsValidation,
     body: bodyValidation,
 });
 
-export const create: RequestHandler = async (req: Request<{}, {}, IBodyProps>, res: Response) => {
+export const updateById = async (req: Request<IParamProps>, res: Response) => {
     
-    res.json(req.body);
+    res.json(req.params);
 };
