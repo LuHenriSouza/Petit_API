@@ -1,16 +1,8 @@
 import { Router } from 'express';
-// import { StatusCodes } from 'http-status-codes';
+import { ProductController } from './../controllers';
 
 const router = Router();
 
-
-router.post('/', (req, res) => {
-    return res.json('Hello');
-});
-
-
-
-
-
+router.post('/', ProductController.create);
 
 export { router };
