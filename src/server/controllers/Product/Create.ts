@@ -1,13 +1,9 @@
 import { Request, RequestHandler, Response } from 'express';
 import * as yup from 'yup';
 import { validation } from '../../shared/middleware';
+import { IProduct } from '../../database/models';
 
-interface IBodyProps {
-    code: string,
-    name: string,
-    sector: number,
-    price: number
-}
+interface IBodyProps extends Omit<IProduct, 'id' | 'created_at' | 'updated_at'> {}
 
 const bodyValidation: yup.Schema<IBodyProps> = yup.object().shape({
     code: yup.string().required().min(1).max(20),

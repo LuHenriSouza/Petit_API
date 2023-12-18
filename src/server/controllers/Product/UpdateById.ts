@@ -1,16 +1,13 @@
 import { Request, Response } from 'express';
 import * as yup from 'yup';
 import { validation } from '../../shared/middleware';
+import { IProduct } from '../../database/models';
 
 interface IParamProps {
     id?: number,
 }
 
-interface IBodyProps {
-    name: string,
-    sector: number,
-    price: number
-}
+interface IBodyProps extends Omit<IProduct, 'id' | 'created_at' | 'updated_at' | 'code'> {}
 
 const paramsValidation: yup.Schema<IParamProps> = yup.object().shape({
     id: yup.number().integer().required().moreThan(0),
