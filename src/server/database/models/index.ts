@@ -2,7 +2,6 @@ export * from './Product';
 export * from './CashOutflow';
 export * from './Fincash';
 export * from './Group';
-export * from './OutType';
 export * from './Product_group';
 export * from './Product_sale';
 export * from './Sale';

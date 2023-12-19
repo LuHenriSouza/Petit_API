@@ -3,7 +3,6 @@ export enum ETableNames {
     sales = 'sales',
     product_sales = 'product_sales',
     fincashs = 'fincashs',
-    outTypes = 'outTypes',
     cashOutflows = 'cashOutflows',
     stocks = 'stocks',
     groups = 'groups',

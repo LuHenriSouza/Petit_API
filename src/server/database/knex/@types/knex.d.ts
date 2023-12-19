@@ -6,7 +6,6 @@ declare module 'knex/types/tables' {
         sales: ISale,
         product_sales: IProduct_sale,
         fincashs: IFincash,
-        outTypes: IOutType,
         cashOutflows: ICashOutflow,
         stocks: IStock,
         groups: IGroup,
