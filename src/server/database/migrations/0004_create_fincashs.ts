@@ -5,7 +5,7 @@ import { ETableNames } from '../ETableNames';
 export async function up(knex: Knex): Promise<void> {
     return knex.schema.createTable(ETableNames.fincashs, table => {
         table.bigIncrements('id').primary().index();
-        table.string('opener').notNullable();
+        table.string('opener').notNullable().index();
         table.decimal('value').notNullable();
         table.decimal('finalValue');
         table.boolean('isFinished').defaultTo(false);

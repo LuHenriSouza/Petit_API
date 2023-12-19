@@ -1,0 +1,33 @@
+import { Request, RequestHandler, Response } from 'express';
+import * as yup from 'yup';
+import { validation } from '../../shared/middleware';
+import { IFincash } from '../../database/models';
+import { FincashProvider } from '../../database/providers/Fincash';
+import { StatusCodes } from 'http-status-codes';
+
+interface IBodyProps extends Omit<IFincash, 'id' | 'created_at' | 'updated_at'> { }
+
+const bodyValidation: yup.Schema<IBodyProps> = yup.object().shape({
+    opener: yup.string().required().min(3).max(30),
+    value: yup.number().required().min(0),
+
+    finalValue: yup.number(),
+    finalDate: yup.date(),
+    isFinished: yup.boolean().default(false),
+});
+
+export const createValidation = validation({
+    body: bodyValidation,
+});
+
+export const create: RequestHandler = async (req: Request<{}, {}, IBodyProps>, res: Response) => {
+    const result = await FincashProvider.create(req.body);
+    if (result instanceof Error) {
+        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+            errors: {
+                default: result.message
+            }
+        });
+    }
+    return res.status(StatusCodes.CREATED).json(result);
+};
