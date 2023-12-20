@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { ProductController, FincashController } from './../controllers';
+import { ProductController, FincashController, CashOutflowController } from './../controllers';
 
 const router = Router();
 
@@ -18,5 +18,11 @@ router.post('/fincash', FincashController.createValidation, FincashController.cr
 router.delete('/fincash/:id', FincashController.deleteByIdValidation, FincashController.deleteById);
 router.put('/fincash/finish/:id', FincashController.updateByIdValidation, FincashController.finish);
 
+// CASHOUTFLOW
+router.get('/cashoutflow/:id', CashOutflowController.getAllValidation, CashOutflowController.getAllById);
+router.post('/cashoutflow', CashOutflowController.createValidation, CashOutflowController.create);
+// router.get('/cashoutflow/:id', CashOutflowController.getByIdValidation, CashOutflowController.getById);
+// router.put('/cashoutflow/:id', CashOutflowController.updateByIdValidation, CashOutflowController.updateById);
+// router.delete('/cashoutflow/:id', CashOutflowController.deleteByIdValidation, CashOutflowController.deleteById);
 
 export { router };
