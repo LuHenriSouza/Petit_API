@@ -1,10 +1,10 @@
-import { IProduct } from '../../models';
+import { IProduct, ISaleDetails } from '../../models';
 
 declare module 'knex/types/tables' {
     interface Tables {
         products: IProduct,
         sales: ISale,
-        product_sales: IProduct_sale,
+        saleDetails: ISaleDetails,
         fincashs: IFincash,
         cashOutflows: ICashOutflow,
         stocks: IStock,

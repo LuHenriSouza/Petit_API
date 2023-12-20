@@ -1,7 +1,7 @@
 export enum ETableNames {
     products = 'products',
     sales = 'sales',
-    product_sales = 'product_sales',
+    saleDetails = 'SaleDetails',
     fincashs = 'fincashs',
     cashOutflows = 'cashOutflows',
     stocks = 'stocks',

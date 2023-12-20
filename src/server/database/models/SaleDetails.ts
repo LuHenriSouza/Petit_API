@@ -1,4 +1,4 @@
-export interface IProduct_Sale {
+export interface ISaleDetails {
     id: number,
     sale_id: number,
     prod_id: number,

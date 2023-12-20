@@ -3,7 +3,7 @@ export * from './CashOutflow';
 export * from './Fincash';
 export * from './Group';
 export * from './Product_group';
-export * from './Product_sale';
+export * from './SaleDetails';
 export * from './Sale';
 export * from './Stock';
 export * from './Validity';
