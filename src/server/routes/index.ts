@@ -29,9 +29,9 @@ router.post('/cashoutflow', CashOutflowController.createValidation, CashOutflowC
 
 // SALE
 router.post('/sale', SaleDetailController.createValidation, SaleDetailController.create);
-// router.get('/cashoutflow/:id', SaleDetailController.getAllValidation, SaleDetailController.getAllById);
-// router.get('/cashoutflow/:id', SaleDetailController.getByIdValidation, SaleDetailController.getById);
-// router.put('/cashoutflow/:id', SaleDetailController.updateByIdValidation, SaleDetailController.updateById);
-// router.delete('/cashoutflow/:id', SaleDetailController.deleteByIdValidation, SaleDetailController.deleteById);
+router.get('/sale/:id', SaleDetailController.getAllValidation, SaleDetailController.getAllById);
+router.get('/sale', SaleDetailController.getAllValidation, SaleDetailController.getAll);
+// router.put('/sale/:id', SaleDetailController.updateByIdValidation, SaleDetailController.updateById);
+// router.delete('/sale/:id', SaleDetailController.deleteByIdValidation, SaleDetailController.deleteById);
 
 export { router };
