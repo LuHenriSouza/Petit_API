@@ -1,37 +1,51 @@
 import { Router } from 'express';
-import { ProductController, FincashController, CashOutflowController, SaleDetailController } from './../controllers';
+import { ProductController, FincashController, CashOutflowController, SaleDetailController, UserController } from './../controllers';
+import { ensureAuthenticated } from '../shared/middleware';
 
 const router = Router();
 
 // PRODUCT
-router.get('/product', ProductController.getAllValidation, ProductController.getAll);
-router.get('/product/:id', ProductController.getByIdValidation, ProductController.getById);
-router.post('/product', ProductController.createValidation, ProductController.create);
-router.put('/product/:id', ProductController.updateByIdValidation, ProductController.updateById);
-router.delete('/product/:id', ProductController.deleteByIdValidation, ProductController.deleteById);
+router.get('/product', ensureAuthenticated, ProductController.getAllValidation, ProductController.getAll);
+router.get('/product/:id', ensureAuthenticated, ProductController.getByIdValidation, ProductController.getById);
+router.post('/product', ensureAuthenticated, ProductController.createValidation, ProductController.create);
+router.put('/product/:id', ensureAuthenticated, ProductController.updateByIdValidation, ProductController.updateById);
+router.delete('/product/:id', ensureAuthenticated, ProductController.deleteByIdValidation, ProductController.deleteById);
+
+
 
 // FINCASH
-router.get('/fincash', FincashController.getAllValidation, FincashController.getAll);
-router.get('/fincash/:id', FincashController.getByIdValidation, FincashController.getById);
-router.post('/fincash', FincashController.createValidation, FincashController.create);
-// router.put('/fincash/:id', FincashController.updateByIdValidation, FincashController.updateById);
-router.delete('/fincash/:id', FincashController.deleteByIdValidation, FincashController.deleteById);
-router.put('/fincash/finish/:id', FincashController.updateByIdValidation, FincashController.finish);
+router.get('/fincash', ensureAuthenticated, FincashController.getAllValidation, FincashController.getAll);
+router.get('/fincash/:id', ensureAuthenticated, FincashController.getByIdValidation, FincashController.getById);
+router.post('/fincash', ensureAuthenticated, FincashController.createValidation, FincashController.create);
+router.delete('/fincash/:id', ensureAuthenticated, FincashController.deleteByIdValidation, FincashController.deleteById);
+router.put('/fincash/finish/:id', ensureAuthenticated, FincashController.updateByIdValidation, FincashController.finish);
+// router.put('/fincash/:id',ensureAuthenticated, FincashController.updateByIdValidation, FincashController.updateById);
+
+
 
 // CASHOUTFLOW
-router.get('/cashoutflow/:id', CashOutflowController.getAllValidation, CashOutflowController.getAllById);
-router.post('/cashoutflow', CashOutflowController.createValidation, CashOutflowController.create);
-// router.get('/cashoutflow/:id', CashOutflowController.getByIdValidation, CashOutflowController.getById);
-// router.put('/cashoutflow/:id', CashOutflowController.updateByIdValidation, CashOutflowController.updateById);
-// router.delete('/cashoutflow/:id', CashOutflowController.deleteByIdValidation, CashOutflowController.deleteById);
+router.get('/cashoutflow/:id', ensureAuthenticated, CashOutflowController.getAllValidation, CashOutflowController.getAllById);
+router.post('/cashoutflow', ensureAuthenticated, CashOutflowController.createValidation, CashOutflowController.create);
+// router.get('/cashoutflow/:id',ensureAuthenticated, CashOutflowController.getByIdValidation, CashOutflowController.getById);
+// router.put('/cashoutflow/:id',ensureAuthenticated, CashOutflowController.updateByIdValidation, CashOutflowController.updateById);
+// router.delete('/cashoutflow/:id',ensureAuthenticated, CashOutflowController.deleteByIdValidation, CashOutflowController.deleteById);
 
 
 
 // SALE
-router.post('/sale', SaleDetailController.createValidation, SaleDetailController.create);
-router.get('/sale/:id', SaleDetailController.getAllValidation, SaleDetailController.getAllById);
-router.get('/sale', SaleDetailController.getAllValidation, SaleDetailController.getAll);
-// router.put('/sale/:id', SaleDetailController.updateByIdValidation, SaleDetailController.updateById);
-// router.delete('/sale/:id', SaleDetailController.deleteByIdValidation, SaleDetailController.deleteById);
+router.post('/sale', ensureAuthenticated, SaleDetailController.createValidation, SaleDetailController.create);
+router.get('/sale/:id', ensureAuthenticated, SaleDetailController.getAllValidation, SaleDetailController.getAllById);
+router.get('/sale', ensureAuthenticated, SaleDetailController.getAllValidation, SaleDetailController.getAll);
+// router.put('/sale/:id',ensureAuthenticated, SaleDetailController.updateByIdValidation, SaleDetailController.updateById);
+// router.delete('/sale/:id',ensureAuthenticated, SaleDetailController.deleteByIdValidation, SaleDetailController.deleteById);
+
+
+
+// USER
+router.post('/register', ensureAuthenticated, UserController.createValidation, UserController.signUp);
+router.post('/login', UserController.signInValidation, UserController.signIn);
+
+
+
 
 export { router };
