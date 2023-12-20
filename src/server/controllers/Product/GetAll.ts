@@ -28,7 +28,7 @@ export const getAllValidation = validation({
 });
 
 export const getAll: RequestHandler = async (req: Request<{}, {}, {}, IQueryProps>, res: Response) => {
-    const result = await ProductProvider.getAll(req.query.page || DEFAULT_PAGE, req.query.limit || DEFAULT_LIMIT, req.query.filter || DEFAULT_FILTER, Number(req.query.id));
+    const result = await ProductProvider.getAll(req.query.page || DEFAULT_PAGE, req.query.limit || DEFAULT_LIMIT, req.query.filter || DEFAULT_FILTER, Number(req.query.id || 0));
     const count = await ProductProvider.count(req.query.filter);
 
     if (result instanceof Error) {
