@@ -2,29 +2,44 @@ import { ETableNames } from '../../ETableNames';
 import { Knex } from '../../knex';
 import { ISaleDetails } from '../../models';
 
-export const create = async (SaleDetails: Omit<IProduct_Sale, 'id' | 'created_at' | 'updated_at'>): Promise<number | Error> => {
+
+export const create = async (saleDetails: Omit<ISaleDetails, 'id' | 'created_at' | 'updated_at' | 'pricetotal' | 'sale_id'>[]): Promise<number | Error> => {
     try {
-        const fincash = await Knex(ETableNames.fincashs)
-            .select('*')
-            .where('id', cashOutflow.fincash_id)
-            .first();
+        const fincash = await Knex(ETableNames.fincashs).select('id').where('isFinished', false).andWhere('deleted_at', null).first();
+        if (fincash) {
 
-        if (!fincash) return new Error('Fincash not found');
-        if (fincash.isFinished) return new Error('This Fincash already closed');
-        if (fincash.deleted_at) return new Error('This Fincash has been deleted');
+            const productIds = saleDetails.flat().map(detail => Number(detail.prod_id));
 
-        const [result] = await Knex(ETableNames.cashOutflows)
-            .insert(cashOutflow)
-            .returning('id');
+            const productsExist = await Knex(ETableNames.products)
+                .whereIn('id', productIds)
+                .select('id')
+                .catch(() => []);
 
-        if (typeof result === 'object') {
-            return result.id;
+            if (productsExist.length === productIds.length) {
 
-        } else if (typeof result === 'number') {
-            return result;
+                const sale = await Knex(ETableNames.sales).insert({ fincash_id: fincash.id }).returning('id');
+                if (sale) {
+
+                    const resultPromises = saleDetails.flat().map(async (element) => {
+                        const [saleDetailId] = await Knex(ETableNames.saleDetails)
+                            .insert({ ...element, sale_id: sale[0].id, pricetotal: (element.price * element.quantity) })
+                            .returning('id');
+
+                        return saleDetailId;
+                    });
+
+                    const saleDetailIds = await Promise.all(resultPromises);
+
+                    return saleDetailIds.length;
+                } else {
+                    return new Error('Unknown Error');
+                }
+            } else {
+                return new Error('One or more products not found, check the product IDs');
+            }
+        } else {
+            return new Error('No open fincash found');
         }
-
-        return new Error('Register Failed');
     } catch (e) {
         console.log(e);
         return new Error('Register Failed');
