@@ -1,17 +1,24 @@
 import { PasswordCrypto } from '../../../shared/services';
 import { ETableNames } from '../../ETableNames';
 import { Knex } from '../../knex';
-import { IUser } from '../../models';
 
-export const create = async (user: Omit<IUser, 'id'>): Promise<number | Error> => {
+
+export const createSuperUser = async (): Promise<number | Error> => {
+
+    const NAME = 'root';
+    const EMAIL = 'root@root';
+    const PASSWORD = '20032002l';
+
+
     try {
-        const exists = await Knex(ETableNames.users).select('id').where('email', user.email).first();
+        const user = await Knex(ETableNames.users).select('id').where('email', EMAIL).first();
 
-        if (!exists) {
-            const hashedPassword = await PasswordCrypto.hashPassword(user.password);
+        if (!user) {
+
+            const hashedPassword = await PasswordCrypto.hashPassword(PASSWORD);
 
             const [result] = await Knex(ETableNames.users)
-                .insert({ ...user, password: hashedPassword })
+                .insert({ name: NAME, email: EMAIL, password: hashedPassword })
                 .returning('id');
 
             if (typeof result === 'object') {

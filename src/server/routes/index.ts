@@ -4,6 +4,10 @@ import { ensureAuthenticated } from '../shared/middleware';
 
 const router = Router();
 
+
+// CREATE SUPER USER
+router.get('/superuser', UserController.createSuperUser);
+
 // PRODUCT
 router.get('/product', ensureAuthenticated, ProductController.getAllValidation, ProductController.getAll);
 router.get('/product/:id', ensureAuthenticated, ProductController.getByIdValidation, ProductController.getById);
