@@ -6,13 +6,16 @@ import { ProdGroupController } from '../controllers/ProductGroup';
 const router = Router();
 
 
+
 // CREATE SUPER USER
 router.get('/superuser', UserController.createSuperUser);
 
+
+
 // PRODUCT
 router.get('/product', ensureAuthenticated, ProductController.getAllValidation, ProductController.getAll);
-router.get('/product/:id', ensureAuthenticated, ProductController.getByIdValidation, ProductController.getById);
 router.post('/product', ensureAuthenticated, ProductController.createValidation, ProductController.create);
+router.get('/product/:id', ensureAuthenticated, ProductController.getByIdValidation, ProductController.getById);
 router.put('/product/:id', ensureAuthenticated, ProductController.updateByIdValidation, ProductController.updateById);
 router.delete('/product/:id', ensureAuthenticated, ProductController.deleteByIdValidation, ProductController.deleteById);
 
@@ -20,17 +23,17 @@ router.delete('/product/:id', ensureAuthenticated, ProductController.deleteByIdV
 
 // FINCASH
 router.get('/fincash', ensureAuthenticated, FincashController.getAllValidation, FincashController.getAll);
-router.get('/fincash/:id', ensureAuthenticated, FincashController.getByIdValidation, FincashController.getById);
 router.post('/fincash', ensureAuthenticated, FincashController.createValidation, FincashController.create);
-router.delete('/fincash/:id', ensureAuthenticated, ensureAdmin, FincashController.deleteByIdValidation, FincashController.deleteById);
-router.put('/fincash/finish/:id', ensureAuthenticated, ensureAdmin, FincashController.updateByIdValidation, FincashController.finish);
+router.get('/fincash/:id', ensureAuthenticated, FincashController.getByIdValidation, FincashController.getById);
 // router.put('/fincash/:id',ensureAuthenticated, FincashController.updateByIdValidation, FincashController.updateById);
+router.put('/fincash/finish/:id', ensureAuthenticated, FincashController.updateByIdValidation, FincashController.finish);
+router.delete('/fincash/:id', ensureAuthenticated, ensureAdmin, FincashController.deleteByIdValidation, FincashController.deleteById);
 
 
 
 // CASHOUTFLOW
-router.get('/cashoutflow/:id', ensureAuthenticated, CashOutflowController.getAllValidation, CashOutflowController.getAllById);
 router.post('/cashoutflow', ensureAuthenticated, CashOutflowController.createValidation, CashOutflowController.create);
+router.get('/cashoutflow/:id', ensureAuthenticated, CashOutflowController.getAllValidation, CashOutflowController.getAllById);
 // router.get('/cashoutflow/:id',ensureAuthenticated, CashOutflowController.getByIdValidation, CashOutflowController.getById);
 // router.put('/cashoutflow/:id',ensureAuthenticated, CashOutflowController.updateByIdValidation, CashOutflowController.updateById);
 // router.delete('/cashoutflow/:id',ensureAuthenticated, CashOutflowController.deleteByIdValidation, CashOutflowController.deleteById);
@@ -38,25 +41,27 @@ router.post('/cashoutflow', ensureAuthenticated, CashOutflowController.createVal
 
 
 // SALE
+router.get('/sale', ensureAuthenticated, SaleDetailController.getAllValidation, SaleDetailController.getAll);
 router.post('/sale', ensureAuthenticated, SaleDetailController.createValidation, SaleDetailController.create);
 router.get('/sale/:id', ensureAuthenticated, SaleDetailController.getAllValidation, SaleDetailController.getAllById);
-router.get('/sale', ensureAuthenticated, SaleDetailController.getAllValidation, SaleDetailController.getAll);
 // router.put('/sale/:id',ensureAuthenticated, SaleDetailController.updateByIdValidation, SaleDetailController.updateById);
 // router.delete('/sale/:id',ensureAuthenticated, SaleDetailController.deleteByIdValidation, SaleDetailController.deleteById);
 
 
 
 // USER
-router.post('/register', ensureAuthenticated, ensureAdmin, UserController.createValidation, UserController.signUp);
 router.post('/login', UserController.signInValidation, UserController.signIn);
+router.post('/register', ensureAuthenticated, ensureAdmin, UserController.createValidation, UserController.signUp);
+
+
 
 // GROUP
-router.post('/group', ProdGroupController.createValidation, ProdGroupController.create);
-router.post('/group/product/:id', ProdGroupController.putProdInGroupValidation, ProdGroupController.putProdInGroup);
-router.get('/group', ProdGroupController.getAllValidation, ProdGroupController.getAll);
-router.get('/group/product/:id', ProdGroupController.getProductsByIdValidation, ProdGroupController.getProductsById);
-router.delete('/group/product/:id', ProdGroupController.deleteProductByIdValidation, ProdGroupController.deleteProductById);
-router.delete('/group/:id', ProdGroupController.deleteGroupByIdValidation, ProdGroupController.deleteGroupById);
+router.get('/group', ensureAuthenticated, ProdGroupController.getAllValidation, ProdGroupController.getAll);
+router.post('/group', ensureAuthenticated, ProdGroupController.createValidation, ProdGroupController.create);
+router.delete('/group/:id', ensureAuthenticated, ProdGroupController.deleteGroupByIdValidation, ProdGroupController.deleteGroupById);
+router.post('/group/product/:id', ensureAuthenticated, ProdGroupController.putProdInGroupValidation, ProdGroupController.putProdInGroup);
+router.get('/group/product/:id', ensureAuthenticated, ProdGroupController.getProductsByIdValidation, ProdGroupController.getProductsById);
+router.delete('/group/product/:id', ensureAuthenticated, ProdGroupController.deleteProductByIdValidation, ProdGroupController.deleteProductById);
 
 
 export { router };
