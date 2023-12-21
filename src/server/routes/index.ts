@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import { ProductController, FincashController, CashOutflowController, SaleDetailController, UserController } from './../controllers';
 import { ensureAuthenticated, ensureAdmin } from '../shared/middleware';
+import { ProdGroupController } from '../controllers/ProductGroup';
 
 const router = Router();
 
@@ -48,6 +49,14 @@ router.get('/sale', ensureAuthenticated, SaleDetailController.getAllValidation, 
 // USER
 router.post('/register', ensureAuthenticated, ensureAdmin, UserController.createValidation, UserController.signUp);
 router.post('/login', UserController.signInValidation, UserController.signIn);
+
+// GROUP
+router.post('/group', ProdGroupController.createValidation, ProdGroupController.create);
+router.post('/group/product/:id', ProdGroupController.putProdInGroupValidation, ProdGroupController.putProdInGroup);
+router.get('/group', ProdGroupController.getAllValidation, ProdGroupController.getAll);
+router.get('/group/product/:id', ProdGroupController.getProductsByIdValidation, ProdGroupController.getProductsById);
+router.delete('/group/product/:id', ProdGroupController.deleteProductByIdValidation, ProdGroupController.deleteProductById);
+router.delete('/group/:id', ProdGroupController.deleteGroupByIdValidation, ProdGroupController.deleteGroupById);
 
 
 export { router };
