@@ -6,7 +6,7 @@ import { UserProvider } from '../../database/providers/Users';
 import { StatusCodes } from 'http-status-codes';
 import { JWTService, PasswordCrypto } from '../../shared/services';
 
-interface IBodyProps extends Omit<IUser, 'id' | 'name'> { }
+interface IBodyProps extends Omit<IUser, 'id' | 'name' | 'role'> { }
 
 const bodyValidation: yup.Schema<IBodyProps> = yup.object().shape({
     email: yup.string().required().email().min(5).max(50),
@@ -38,7 +38,7 @@ export const signIn: RequestHandler = async (req: Request<{}, {}, IBodyProps>, r
             }
         });
     } else {
-        const accessToken = JWTService.sign({ uid: result.id });
+        const accessToken = JWTService.sign({ uid: result.id, role: result.role });
         if (accessToken === 'JWT_KEY_NOT_FOUND' || accessToken === 'INVALID_TOKEN') {
             return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
                 errors: {

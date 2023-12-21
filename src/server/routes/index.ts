@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { ProductController, FincashController, CashOutflowController, SaleDetailController, UserController } from './../controllers';
-import { ensureAuthenticated } from '../shared/middleware';
+import { ensureAuthenticated, ensureAdmin } from '../shared/middleware';
 
 const router = Router();
 
@@ -21,8 +21,8 @@ router.delete('/product/:id', ensureAuthenticated, ProductController.deleteByIdV
 router.get('/fincash', ensureAuthenticated, FincashController.getAllValidation, FincashController.getAll);
 router.get('/fincash/:id', ensureAuthenticated, FincashController.getByIdValidation, FincashController.getById);
 router.post('/fincash', ensureAuthenticated, FincashController.createValidation, FincashController.create);
-router.delete('/fincash/:id', ensureAuthenticated, FincashController.deleteByIdValidation, FincashController.deleteById);
-router.put('/fincash/finish/:id', ensureAuthenticated, FincashController.updateByIdValidation, FincashController.finish);
+router.delete('/fincash/:id', ensureAuthenticated, ensureAdmin, FincashController.deleteByIdValidation, FincashController.deleteById);
+router.put('/fincash/finish/:id', ensureAuthenticated, ensureAdmin, FincashController.updateByIdValidation, FincashController.finish);
 // router.put('/fincash/:id',ensureAuthenticated, FincashController.updateByIdValidation, FincashController.updateById);
 
 
@@ -46,10 +46,8 @@ router.get('/sale', ensureAuthenticated, SaleDetailController.getAllValidation, 
 
 
 // USER
-router.post('/register', ensureAuthenticated, UserController.createValidation, UserController.signUp);
+router.post('/register', ensureAuthenticated, ensureAdmin, UserController.createValidation, UserController.signUp);
 router.post('/login', UserController.signInValidation, UserController.signIn);
-
-
 
 
 export { router };

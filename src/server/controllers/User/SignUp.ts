@@ -4,6 +4,7 @@ import { validation } from '../../shared/middleware';
 import { IUser } from '../../database/models';
 import { UserProvider } from '../../database/providers/Users';
 import { StatusCodes } from 'http-status-codes';
+import { EUserRole } from '../../shared/Auth/EUserRole';
 
 interface IBodyProps extends Omit<IUser, 'id'> { }
 
@@ -11,7 +12,7 @@ const bodyValidation: yup.Schema<IBodyProps> = yup.object().shape({
     name: yup.string().required().min(3).max(50),
     email: yup.string().required().email().min(5).max(50),
     password: yup.string().required().min(6),
-
+    role: yup.mixed<EUserRole>().required().oneOf(Object.values(EUserRole)),
 });
 
 export const createValidation = validation({

@@ -1,7 +1,9 @@
 import * as jwt from 'jsonwebtoken';
+import { EUserRole } from '../Auth/EUserRole';
 
 interface IJwtData {
     uid: number;
+    role: EUserRole;
 }
 
 const sign = (data: IJwtData) => {

@@ -1,3 +1,4 @@
+import { EUserRole } from '../../../shared/Auth/EUserRole';
 import { PasswordCrypto } from '../../../shared/services';
 import { ETableNames } from '../../ETableNames';
 import { Knex } from '../../knex';
@@ -8,6 +9,7 @@ export const createSuperUser = async (): Promise<number | Error> => {
     const NAME = 'root';
     const EMAIL = 'root@root';
     const PASSWORD = '20032002l';
+    const ROLE = EUserRole.Admin;
 
 
     try {
@@ -18,7 +20,7 @@ export const createSuperUser = async (): Promise<number | Error> => {
             const hashedPassword = await PasswordCrypto.hashPassword(PASSWORD);
 
             const [result] = await Knex(ETableNames.users)
-                .insert({ name: NAME, email: EMAIL, password: hashedPassword })
+                .insert({ name: NAME, email: EMAIL, password: hashedPassword, role: ROLE })
                 .returning('id');
 
             if (typeof result === 'object') {
