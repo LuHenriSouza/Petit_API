@@ -12,7 +12,8 @@ export const getAll = async (page: number, limit: number, filter: string, id = 0
                     .orWhere('code', 'like', `%${filter}%`).andWhere('deleted_at', null);
             })
             .offset((page - 1) * limit)
-            .limit(limit);
+            .limit(limit)
+            .orderBy('updated_at', 'desc');
 
         if (id > 0 && result.every(item => item.id !== id)) {
             const resultById = await Knex(ETableNames.products)
