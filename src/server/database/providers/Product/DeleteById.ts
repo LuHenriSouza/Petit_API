@@ -3,10 +3,11 @@ import { Knex } from '../../knex';
 
 export const deleteById = async (id: number): Promise<void | Error> => {
     try {
-        const deleted = await Knex(ETableNames.products).select('id').where('id', id).andWhere('deleted_at', null).first();
+        const deleted = await Knex(ETableNames.products).select('id','code').where('id', id).andWhere('deleted_at', null).first();
         if (deleted) {
             const result = await Knex(ETableNames.products)
                 .update({
+                    code: deleted.code +'D'+ Knex.fn.now(),
                     deleted_at: Knex.fn.now(),
                 })
                 .where('id', '=', id);
