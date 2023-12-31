@@ -1,18 +1,21 @@
+import * as count from './Count';
 import * as create from './Create';
 import * as getAll from './GetAll';
+import * as finish from './Finish';
 import * as getById from './GetById';
 import * as updateById from './UpdateById';
 import * as deleteById from './DeleteById';
-import * as count from './Count';
-import * as finish from './Finish';
+import * as getByFinished from './GetByFinished';
+
 
 export const FincashProvider = {
+    ...count,
     ...create,
     ...getAll,
+    ...finish,
     ...getById,
     ...updateById,
     ...deleteById,
-    ...count,
-    ...finish,
+    ...getByFinished,
     
 };

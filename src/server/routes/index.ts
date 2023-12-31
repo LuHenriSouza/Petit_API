@@ -14,6 +14,7 @@ router.get('/superuser', UserController.createSuperUser);
 
 
 // PRODUCT
+router.get('/product/:code', ensureAuthenticated, ProductController.getByCode, ProductController.getByCode);
 router.get('/product', ensureAuthenticated, ProductController.getAllValidation, ProductController.getAll);
 router.post('/product', ensureAuthenticated, ProductController.createValidation, ProductController.create);
 router.get('/product/:id', ensureAuthenticated, ProductController.getByIdValidation, ProductController.getById);
@@ -23,6 +24,7 @@ router.delete('/product/:id', ensureAuthenticated, ProductController.deleteByIdV
 
 
 // FINCASH
+router.get('/fincash/verify', ensureAuthenticated, FincashController.getByFinished);
 router.get('/fincash', ensureAuthenticated, FincashController.getAllValidation, FincashController.getAll);
 router.post('/fincash', ensureAuthenticated, FincashController.createValidation, FincashController.create);
 router.get('/fincash/:id', ensureAuthenticated, FincashController.getByIdValidation, FincashController.getById);

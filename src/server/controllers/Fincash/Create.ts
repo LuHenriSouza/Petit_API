@@ -5,15 +5,12 @@ import { IFincash } from '../../database/models';
 import { FincashProvider } from '../../database/providers/Fincash';
 import { StatusCodes } from 'http-status-codes';
 
-interface IBodyProps extends Omit<IFincash, 'id' | 'created_at' | 'updated_at'> { }
+interface IBodyProps extends Omit<IFincash, 'id' | 'created_at' | 'updated_at' | 'isFinished' > { }
 
 const bodyValidation: yup.Schema<IBodyProps> = yup.object().shape({
     opener: yup.string().required().min(3).max(30),
     value: yup.number().required().min(0),
 
-    finalValue: yup.number(),
-    finalDate: yup.date(),
-    isFinished: yup.boolean().default(false),
 });
 
 export const createValidation = validation({

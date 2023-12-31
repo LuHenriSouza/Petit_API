@@ -18,9 +18,9 @@ for (let i = 0; i < NumberOfInsertions; i++) {
 }
 
 export const seed = async () => {
-    const [{ count }] = await Knex(ETableNames.products).count<[{ count: number }]>('* as count');
+    // const [{ count }] = await Knex(ETableNames.products).count<[{ count: number }]>('* as count');
 
-    if (!Number.isInteger(count) || count > 0) return;
+    // if (!Number.isInteger(count) || count > 0) return;
 
     const productsToInsert: Omit<IProduct, 'id' | 'created_at' | 'updated_at'>[] = [];
 
