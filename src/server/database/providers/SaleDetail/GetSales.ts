@@ -13,14 +13,27 @@ export const getSales = async (page: number, limit: number): Promise<IGetSales[]
 
         const result = await Knex(ETableNames.saleDetails)
             .select('sale_id')
-            .select(Knex.raw('DATE_TRUNC(\'second\', created_at) as created_at'))
             .sum('pricetotal as totalValue')
-            .groupBy('sale_id', Knex.raw('DATE_TRUNC(\'second\', created_at)'))
+            .groupBy('sale_id')
             .offset((page - 1) * limit)
             .limit(limit)
-            .orderBy('created_at', 'desc');
+            .orderBy('sale_id', 'desc');
 
-        return result.map(row => ({
+        const salesPromises = result.map(async (row) => {
+            const sale = await Knex(ETableNames.sales)
+                .select('created_at')
+                .where('id', row.sale_id)
+                .first();
+            return {
+                sale_id: row.sale_id,
+                created_at: sale.created_at,
+                totalValue: row.totalValue,
+            };
+        });
+
+        const sales = await Promise.all(salesPromises);
+
+        return sales.map((row) => ({
             sale_id: row.sale_id,
             created_at: row.created_at,
             totalValue: row.totalValue,
