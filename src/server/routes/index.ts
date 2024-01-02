@@ -44,6 +44,7 @@ router.get('/cashoutflow/:id', ensureAuthenticated, CashOutflowController.getAll
 
 
 // SALE
+router.get('/sale/all', ensureAuthenticated, SaleDetailController.getSalesValidation, SaleDetailController.getSales);
 router.get('/sale', ensureAuthenticated, SaleDetailController.getAllValidation, SaleDetailController.getAll);
 router.post('/sale', ensureAuthenticated, SaleDetailController.createValidation, SaleDetailController.create);
 router.get('/sale/:id', ensureAuthenticated, SaleDetailController.getAllValidation, SaleDetailController.getAllById);
