@@ -14,7 +14,7 @@ router.get('/superuser', UserController.createSuperUser);
 
 
 // PRODUCT
-router.get('/product/:code', ensureAuthenticated, ProductController.getByCode, ProductController.getByCode);
+router.get('/product/code/:code', ensureAuthenticated, ProductController.getByCode, ProductController.getByCode);
 router.get('/product', ensureAuthenticated, ProductController.getAllValidation, ProductController.getAll);
 router.post('/product', ensureAuthenticated, ProductController.createValidation, ProductController.create);
 router.get('/product/:id', ensureAuthenticated, ProductController.getByIdValidation, ProductController.getById);
@@ -48,6 +48,7 @@ router.get('/sale/all', ensureAuthenticated, SaleDetailController.getSalesValida
 router.get('/sale', ensureAuthenticated, SaleDetailController.getAllValidation, SaleDetailController.getAll);
 router.post('/sale', ensureAuthenticated, SaleDetailController.createValidation, SaleDetailController.create);
 router.get('/sale/:id', ensureAuthenticated, SaleDetailController.getAllValidation, SaleDetailController.getAllById);
+router.get('/sale/raw/:id', ensureAuthenticated, SaleDetailController.getByIdValidation, SaleDetailController.getById);
 // router.put('/sale/:id',ensureAuthenticated, SaleDetailController.updateByIdValidation, SaleDetailController.updateById);
 // router.delete('/sale/:id',ensureAuthenticated, SaleDetailController.deleteByIdValidation, SaleDetailController.deleteById);
 
