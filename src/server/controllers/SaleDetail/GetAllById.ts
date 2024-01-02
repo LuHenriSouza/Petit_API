@@ -43,6 +43,7 @@ export const getAllById: RequestHandler = async (req: Request<IParamProps, {}, {
     }
 
     const result = await SaleDetailProvider.getAllById(req.query.page || DEFAULT_PAGE, req.query.limit || DEFAULT_LIMIT, req.params.id);
+    const count = await SaleDetailProvider.countSaleDetails(req.params.id);
 
     if (result instanceof Error) {
         return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
@@ -50,7 +51,16 @@ export const getAllById: RequestHandler = async (req: Request<IParamProps, {}, {
                 default: result.message
             }
         });
+    } else if (count instanceof Error) {
+        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+            errors: {
+                default: count.message
+            }
+        });
     }
+
+    res.setHeader('access-control-expose-headers', 'x-total-count');
+    res.setHeader('x-total-count', count);
 
     return res.status(StatusCodes.OK).json(result);
 };
