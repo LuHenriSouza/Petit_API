@@ -14,10 +14,10 @@ router.get('/superuser', UserController.createSuperUser);
 
 
 // PRODUCT
-router.get('/product/code/:code', ensureAuthenticated, ProductController.getByCode, ProductController.getByCode);
 router.get('/product', ensureAuthenticated, ProductController.getAllValidation, ProductController.getAll);
 router.post('/product', ensureAuthenticated, ProductController.createValidation, ProductController.create);
 router.get('/product/:id', ensureAuthenticated, ProductController.getByIdValidation, ProductController.getById);
+router.get('/product/code/:code', ensureAuthenticated, ProductController.getByCode, ProductController.getByCode);
 router.put('/product/:id', ensureAuthenticated, ProductController.updateByIdValidation, ProductController.updateById);
 router.delete('/product/:id', ensureAuthenticated, ProductController.deleteByIdValidation, ProductController.deleteById);
 
@@ -44,12 +44,12 @@ router.get('/cashoutflow/:id', ensureAuthenticated, CashOutflowController.getAll
 
 
 // SALE
-router.get('/sale/all', ensureAuthenticated, SaleDetailController.getSalesValidation, SaleDetailController.getSales);
 router.get('/sale', ensureAuthenticated, SaleDetailController.getAllValidation, SaleDetailController.getAll);
 router.post('/sale', ensureAuthenticated, SaleDetailController.createValidation, SaleDetailController.create);
-router.get('/sale/:id', ensureAuthenticated, SaleDetailController.getAllValidation, SaleDetailController.getAllById);
+router.get('/sale/all', ensureAuthenticated, SaleDetailController.getSalesValidation, SaleDetailController.getSales);
 router.get('/sale/raw/:id', ensureAuthenticated, SaleDetailController.getByIdValidation, SaleDetailController.getById);
-// router.put('/sale/:id',ensureAuthenticated, SaleDetailController.updateByIdValidation, SaleDetailController.updateById);
+router.put('/sale/:id',ensureAuthenticated, SaleDetailController.updateByIdValidation, SaleDetailController.updateById);
+router.get('/sale/all/:id', ensureAuthenticated, SaleDetailController.getAllValidation, SaleDetailController.getAllById);
 // router.delete('/sale/:id',ensureAuthenticated, SaleDetailController.deleteByIdValidation, SaleDetailController.deleteById);
 
 

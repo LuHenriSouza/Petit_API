@@ -4,6 +4,7 @@ import { Knex } from '../../knex';
 
 interface IGetSales {
     sale_id: number,
+    obs: string,
     created_at: Date,
     totalValue: number,
 }
@@ -22,11 +23,13 @@ export const getSales = async (page: number, limit: number): Promise<IGetSales[]
         const salesPromises = result.map(async (row) => {
             const sale = await Knex(ETableNames.sales)
                 .select('created_at')
+                .select('obs')
                 .where('id', row.sale_id)
                 .first();
             return {
                 sale_id: row.sale_id,
                 created_at: sale.created_at,
+                obs: sale.obs,
                 totalValue: row.totalValue,
             };
         });
@@ -35,6 +38,7 @@ export const getSales = async (page: number, limit: number): Promise<IGetSales[]
 
         return sales.map((row) => ({
             sale_id: row.sale_id,
+            obs: row.obs,
             created_at: row.created_at,
             totalValue: row.totalValue,
         }));
