@@ -6,6 +6,7 @@ export async function up(knex: Knex): Promise<void> {
     return knex.schema.createTable(ETableNames.sales, table => {
         table.bigIncrements('id').primary().index();
         table.bigInteger('fincash_id').notNullable().index().references('id').inTable(ETableNames.fincashs).onUpdate('CASCADE').onDelete('RESTRICT').unsigned();
+        table.text('obs').nullable();
         table.timestamps(true, true);        
     });
 }
