@@ -84,10 +84,10 @@ router.delete('/stock/:id', StockController.deleteByIdValidation, StockControlle
 
 // SUPPLIER
 router.get('/supplier', ensureAuthenticated, SupplierController.getAllValidation, SupplierController.getAll);
-router.post('/supplier', ensureAuthenticated, SupplierController.createValidation, SupplierController.create);
 router.get('/supplier/:id', ensureAuthenticated, SupplierController.getByIdValidation, SupplierController.getById);
-router.put('/supplier/:id', ensureAuthenticated, SupplierController.updateByIdValidation, SupplierController.updateById);
-router.delete('/supplier/:id', ensureAuthenticated, SupplierController.deleteByIdValidation, SupplierController.deleteById);
+router.post('/supplier', ensureAuthenticated, ensureAdmin, SupplierController.createValidation, SupplierController.create);
+router.put('/supplier/:id', ensureAuthenticated, ensureAdmin, SupplierController.updateByIdValidation, SupplierController.updateById);
+router.delete('/supplier/:id', ensureAuthenticated, ensureAdmin, SupplierController.deleteByIdValidation, SupplierController.deleteById);
 
 
 export { router };
