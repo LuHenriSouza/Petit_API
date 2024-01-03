@@ -5,7 +5,7 @@ import { ISupplier } from '../../database/models';
 import { SupplierProvider } from '../../database/providers/Supplier';
 import { StatusCodes } from 'http-status-codes';
 
-interface IBodyProps extends Omit<ISupplier, 'id'> { }
+interface IBodyProps extends Omit<ISupplier, 'id' | 'created_at' | 'updated_at'> { }
 
 const bodyValidation: yup.Schema<IBodyProps> = yup.object().shape({
     name: yup.string().required().min(3).max(50),

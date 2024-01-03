@@ -10,7 +10,7 @@ interface IParamProps {
     id?: number,
 }
 
-interface IBodyProps extends Omit<ISupplier, 'id'> { }
+interface IBodyProps extends Omit<ISupplier, 'id' | 'created_at' | 'updated_at'> { }
 
 const paramsValidation: yup.Schema<IParamProps> = yup.object().shape({
     id: yup.number().integer().required().moreThan(0),

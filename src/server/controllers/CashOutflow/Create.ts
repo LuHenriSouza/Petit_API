@@ -11,7 +11,8 @@ const bodyValidation: yup.Schema<IBodyProps> = yup.object().shape({
     type: yup.string().required().min(1).max(15),
     fincash_id: yup.number().required().moreThan(0),
     value: yup.number().required(),
-    desc: yup.string().nullable().max(100),
+    desc: yup.string().nullable().max(200),
+    supplier_id: yup.number().nullable().moreThan(0)
 
 });
 

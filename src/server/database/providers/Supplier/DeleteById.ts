@@ -3,13 +3,17 @@ import { Knex } from '../../knex';
 
 export const deleteById = async (id: number): Promise<void | Error> => {
     try {
-        const deleted = await Knex(ETableNames.suppliers).select('id').where('id', id).first();
+        const deleted = await Knex(ETableNames.suppliers).select('id').where('id', id).andWhere('deleted_at', null).first();
         if (deleted) {
-            await Knex(ETableNames.suppliers)
-                .where('id', '=', id)
-                .del();
+            const result = await Knex(ETableNames.suppliers)
+                .update({
+                    deleted_at: Knex.fn.now(),
+                })
+                .where('id', '=', id);
 
-            return;
+            if (result > 0) return;
+
+            return new Error('Delete Failed');
         } else {
             return new Error('This Object has already been deleted');
         }

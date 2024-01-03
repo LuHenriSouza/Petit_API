@@ -7,6 +7,7 @@ export const getAll = async (page: number, limit: number, filter: string): Promi
         const result = await Knex(ETableNames.suppliers)
             .select('*')
             .where('name', 'ilike', `%${filter}%`)
+            .andWhere('deleted_at', null)
             .offset((page - 1) * limit)
             .limit(limit)
             .orderBy('id', 'desc');

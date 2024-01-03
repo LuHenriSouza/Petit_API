@@ -9,6 +9,7 @@ export async function up(knex: Knex): Promise<void> {
         table.bigInteger('fincash_id').index().notNullable().references('id').inTable(ETableNames.fincashs).onUpdate('CASCADE').onDelete('RESTRICT');
         table.decimal('value').notNullable();
         table.text('desc');
+        table.bigInteger('supplier_id').index().nullable().references('id').inTable(ETableNames.suppliers).onUpdate('CASCADE').onDelete('RESTRICT');
         table.timestamps(true, true);
         table.dateTime('deleted_at');
 
