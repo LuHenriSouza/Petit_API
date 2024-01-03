@@ -8,3 +8,4 @@ export * from './Sale';
 export * from './Stock';
 export * from './Validity';
 export * from './User';
+export * from './Supplier';

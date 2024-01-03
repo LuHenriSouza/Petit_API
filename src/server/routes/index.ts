@@ -1,8 +1,15 @@
+import {
+    UserController,
+    ProductController,
+    FincashController,
+    SupplierController,
+    SaleDetailController,
+    CashOutflowController
+} from './../controllers';
 import { Router } from 'express';
-import { ProductController, FincashController, CashOutflowController, SaleDetailController, UserController } from './../controllers';
-import { ensureAuthenticated, ensureAdmin } from '../shared/middleware';
-import { ProdGroupController } from '../controllers/ProductGroup';
 import { StockController } from '../controllers/Stock';
+import { ProdGroupController } from '../controllers/ProductGroup';
+import { ensureAuthenticated, ensureAdmin } from '../shared/middleware';
 
 const router = Router();
 
@@ -48,7 +55,7 @@ router.get('/sale', ensureAuthenticated, SaleDetailController.getAllValidation, 
 router.post('/sale', ensureAuthenticated, SaleDetailController.createValidation, SaleDetailController.create);
 router.get('/sale/all', ensureAuthenticated, SaleDetailController.getSalesValidation, SaleDetailController.getSales);
 router.get('/sale/raw/:id', ensureAuthenticated, SaleDetailController.getByIdValidation, SaleDetailController.getById);
-router.put('/sale/:id',ensureAuthenticated, SaleDetailController.updateByIdValidation, SaleDetailController.updateById);
+router.put('/sale/:id', ensureAuthenticated, SaleDetailController.updateByIdValidation, SaleDetailController.updateById);
 router.get('/sale/all/:id', ensureAuthenticated, SaleDetailController.getAllValidation, SaleDetailController.getAllById);
 // router.delete('/sale/:id',ensureAuthenticated, SaleDetailController.deleteByIdValidation, SaleDetailController.deleteById);
 
@@ -74,5 +81,13 @@ router.post('/stock', StockController.createValidation, StockController.create);
 router.get('/stock/:id', StockController.getAllByIdValidation, StockController.getAllById);
 router.put('/stock/:id', StockController.updateByIdValidation, StockController.updateById);
 router.delete('/stock/:id', StockController.deleteByIdValidation, StockController.deleteById);
+
+// SUPPLIER
+router.get('/supplier', ensureAuthenticated, SupplierController.getAllValidation, SupplierController.getAll);
+router.post('/supplier', ensureAuthenticated, SupplierController.createValidation, SupplierController.create);
+router.get('/supplier/:id', ensureAuthenticated, SupplierController.getByIdValidation, SupplierController.getById);
+router.put('/supplier/:id', ensureAuthenticated, SupplierController.updateByIdValidation, SupplierController.updateById);
+router.delete('/supplier/:id', ensureAuthenticated, SupplierController.deleteByIdValidation, SupplierController.deleteById);
+
 
 export { router };
