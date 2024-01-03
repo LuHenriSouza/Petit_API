@@ -10,7 +10,8 @@ export const getAllById = async (page: number, limit: number, fincash_id: number
                 .select('*')
                 .where('fincash_id', fincash_id).andWhere('deleted_at', null)
                 .offset((page - 1) * limit)
-                .limit(limit);
+                .limit(limit)
+                .orderBy('created_at', 'desc');
             return result;
         } else {
             return Error('Fincash not found');
