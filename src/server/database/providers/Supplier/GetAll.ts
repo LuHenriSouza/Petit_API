@@ -6,7 +6,7 @@ export const getAll = async (page: number, limit: number, filter: string): Promi
     try {
         const result = await Knex(ETableNames.suppliers)
             .select('*')
-            .where('name', 'like', `%${filter}%`)
+            .where('name', 'ilike', `%${filter}%`)
             .offset((page - 1) * limit)
             .limit(limit)
             .orderBy('id', 'desc');

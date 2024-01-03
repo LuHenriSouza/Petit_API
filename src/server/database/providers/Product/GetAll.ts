@@ -7,7 +7,7 @@ export const getAll = async (page: number, limit: number, filter: string, id = 0
         const result = await Knex(ETableNames.products)
             .select('*')
             .where(function () {
-                this.where('name', 'like', `%${filter}%`).andWhere('deleted_at', null)
+                this.where('name', 'ilike', `%${filter}%`).andWhere('deleted_at', null)
                     .orWhere('code', 'like', `%${filter}%`).andWhere('deleted_at', null);
             })
             .offset((page - 1) * limit)

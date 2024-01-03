@@ -8,7 +8,7 @@ export const getAll = async (page: number, limit: number, filter: string, id = 0
             .select('*')
             .where(function () {
                 this.where('id', '=', id).andWhere('deleted_at', null)
-                    .orWhere('opener', 'like', `%${filter}%`).andWhere('deleted_at', null);
+                    .orWhere('opener', 'ilike', `%${filter}%`).andWhere('deleted_at', null);
             })
             .offset((page - 1) * limit)
             .limit(limit);
