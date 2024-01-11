@@ -1,10 +1,10 @@
 import { ETableNames } from '../../ETableNames';
 import { Knex } from '../../knex';
-import { IProduct } from '../../models';
+import { ISupplier } from '../../models';
 
-export const getById = async (id: number): Promise<IProduct | Error> => {
+export const getById = async (id: number): Promise<ISupplier | Error> => {
     try {
-        const result = await Knex(ETableNames.products)
+        const result = await Knex(ETableNames.suppliers)
             .select('*')
             .where('id', '=', id)
             .first();
