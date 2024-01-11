@@ -43,9 +43,9 @@ router.delete('/fincash/:id', ensureAuthenticated, ensureAdmin, FincashControlle
 
 // CASHOUTFLOW
 router.post('/cashoutflow', ensureAuthenticated, CashOutflowController.createValidation, CashOutflowController.create);
-router.get('/cashoutflow/:id', ensureAuthenticated, CashOutflowController.getAllValidation, CashOutflowController.getAllById);
-// router.get('/cashoutflow/:id',ensureAuthenticated, CashOutflowController.getByIdValidation, CashOutflowController.getById);
-// router.put('/cashoutflow/:id',ensureAuthenticated, CashOutflowController.updateByIdValidation, CashOutflowController.updateById);
+router.get('/cashoutflow/:id',ensureAuthenticated, CashOutflowController.getByIdValidation, CashOutflowController.getById);
+router.put('/cashoutflow/:id',ensureAuthenticated, CashOutflowController.updateByIdValidation, CashOutflowController.updateById);
+router.get('/cashoutflow/all/:id', ensureAuthenticated, CashOutflowController.getAllValidation, CashOutflowController.getAllById);
 // router.delete('/cashoutflow/:id',ensureAuthenticated, CashOutflowController.deleteByIdValidation, CashOutflowController.deleteById);
 
 
@@ -75,12 +75,16 @@ router.post('/group/product/:id', ensureAuthenticated, ProdGroupController.putPr
 router.get('/group/product/:id', ensureAuthenticated, ProdGroupController.getProductsByIdValidation, ProdGroupController.getProductsById);
 router.delete('/group/product/:id', ensureAuthenticated, ProdGroupController.deleteProductByIdValidation, ProdGroupController.deleteProductById);
 
+
+
 // STOCK
 router.get('/stock', StockController.getAllValidation, StockController.getAll);
 router.post('/stock', StockController.createValidation, StockController.create);
 router.get('/stock/:id', StockController.getAllByIdValidation, StockController.getAllById);
 router.put('/stock/:id', StockController.updateByIdValidation, StockController.updateById);
 router.delete('/stock/:id', StockController.deleteByIdValidation, StockController.deleteById);
+
+
 
 // SUPPLIER
 router.get('/supplier', ensureAuthenticated, SupplierController.getAllValidation, SupplierController.getAll);

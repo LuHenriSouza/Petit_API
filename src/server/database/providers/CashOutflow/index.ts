@@ -1,20 +1,20 @@
 import * as create from './Create';
-import * as getAll from './GetAllById';
+import * as getById from './GetById';
+import * as getAllById from './GetAllById';
+import * as updateById from './UpdateById';
 import * as countAllById from './CountAllById';
 
-// import * as updateById from './UpdateById';
 // import * as deleteById from './DeleteById';
-// import * as getById from './GetById';
 // import * as finish from './Finish';
 
 export const CashOutflowProvider = {
     ...create,
-    ...getAll,
+    ...getById,
+    ...getAllById,
+    ...updateById,
     ...countAllById,
     
-    // ...updateById,
     // ...deleteById,
-    // ...getById,
     // ...finish,
     
 };
