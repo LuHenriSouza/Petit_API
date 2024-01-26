@@ -10,16 +10,14 @@ interface IParamProps {
     id?: number,
 }
 
-interface IBodyProps extends Omit<IFincash, 'id' | 'created_at' | 'updated_at' | 'opener' | 'value'> { }
+interface IBodyProps extends Omit<IFincash, 'id' | 'created_at' | 'updated_at' | 'opener' | 'value' | 'finalDate' | 'isFinished'> { }
 
 const paramsValidation: yup.Schema<IParamProps> = yup.object().shape({
     id: yup.number().integer().required().moreThan(0),
 });
 
 const bodyValidation: yup.Schema<IBodyProps> = yup.object().shape({
-    finalValue: yup.number().required(),
-    finalDate: yup.date().required(),
-    isFinished: yup.boolean().required(),
+    finalValue: yup.number().required()
 });
 
 export const updateByIdValidation = validation({
