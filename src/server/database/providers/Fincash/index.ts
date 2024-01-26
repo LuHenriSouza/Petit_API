@@ -6,6 +6,7 @@ import * as getById from './GetById';
 import * as updateById from './UpdateById';
 import * as deleteById from './DeleteById';
 import * as getByFinished from './GetByFinished';
+import * as getLastFincash from './GetLastFincash';
 
 
 export const FincashProvider = {
@@ -17,5 +18,6 @@ export const FincashProvider = {
     ...updateById,
     ...deleteById,
     ...getByFinished,
+    ...getLastFincash,
     
 };

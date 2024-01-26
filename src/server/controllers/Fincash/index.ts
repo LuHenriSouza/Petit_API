@@ -4,6 +4,7 @@ import * as finish from './Finish';
 import * as getById from './GetById';
 import * as deleteById from './DeleteById';
 import * as getByFinished from './GetByFinished';
+import * as getLastFincash from './GetLastFincash';
 // import * as updateById from './UpdateById';
 
 export const FincashController = {
@@ -13,6 +14,7 @@ export const FincashController = {
     ...getById,
     ...deleteById,
     ...getByFinished,
+    ...getLastFincash,
     // ...updateById,
     
 };

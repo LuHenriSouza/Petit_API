@@ -32,6 +32,7 @@ router.delete('/product/:id', ensureAuthenticated, ProductController.deleteByIdV
 
 // FINCASH
 router.get('/fincash/verify', ensureAuthenticated, FincashController.getByFinished);
+router.get('/fincash/last', ensureAuthenticated, FincashController.getLastFincash);
 router.get('/fincash', ensureAuthenticated, FincashController.getAllValidation, FincashController.getAll);
 router.post('/fincash', ensureAuthenticated, FincashController.createValidation, FincashController.create);
 router.get('/fincash/:id', ensureAuthenticated, FincashController.getByIdValidation, FincashController.getById);
@@ -92,6 +93,7 @@ router.get('/supplier/:id', ensureAuthenticated, SupplierController.getByIdValid
 router.post('/supplier', ensureAuthenticated, ensureAdmin, SupplierController.createValidation, SupplierController.create);
 router.put('/supplier/:id', ensureAuthenticated, ensureAdmin, SupplierController.updateByIdValidation, SupplierController.updateById);
 router.delete('/supplier/:id', ensureAuthenticated, ensureAdmin, SupplierController.deleteByIdValidation, SupplierController.deleteById);
+
 
 
 export { router };
