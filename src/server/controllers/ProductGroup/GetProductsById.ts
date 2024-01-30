@@ -7,10 +7,13 @@ import { StatusCodes } from 'http-status-codes';
 // ENV
 const DEFAULT_PAGE = 1;
 const DEFAULT_LIMIT = 7;
+const DEFAULT_FILTER = '';
 
 interface IQueryProps {
     page?: number,
     limit?: number,
+    filter?: string,
+
 }
 
 interface IParamProps {
@@ -24,6 +27,7 @@ const paramsValidation: yup.Schema<IParamProps> = yup.object().shape({
 const queryValidation: yup.Schema<IQueryProps> = yup.object().shape({
     page: yup.number().moreThan(0),
     limit: yup.number().moreThan(0),
+    filter: yup.string(),
 
 });
 
@@ -42,7 +46,8 @@ export const getProductsById: RequestHandler = async (req: Request<IParamProps, 
         });
     }
 
-    const result = await ProdGroupProvider.getProductsById(req.query.page || DEFAULT_PAGE, req.query.limit || DEFAULT_LIMIT, req.params.id);
+    const result = await ProdGroupProvider.getProductsById(req.query.page || DEFAULT_PAGE, req.query.limit || DEFAULT_LIMIT, req.query.filter || DEFAULT_FILTER, req.params.id);
+    const count = await ProdGroupProvider.count(req.query.filter);
 
     if (result instanceof Error) {
         return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
@@ -50,7 +55,16 @@ export const getProductsById: RequestHandler = async (req: Request<IParamProps, 
                 default: result.message
             }
         });
+    } else if (count instanceof Error) {
+        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+            errors: {
+                default: count.message
+            }
+        });
     }
+
+    res.setHeader('access-control-expose-headers', 'x-total-count');
+    res.setHeader('x-total-count', count);
 
     return res.status(StatusCodes.OK).json(result);
 };
