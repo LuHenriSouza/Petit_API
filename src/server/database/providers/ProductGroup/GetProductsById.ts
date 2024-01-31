@@ -8,7 +8,8 @@ export const getProductsById = async (page: number, limit: number, filter: strin
         if (group) {
             const productIds = await Knex(ETableNames.product_groups)
                 .select('prod_id')
-                .where('group_id', group.id);
+                .where('group_id', group.id)
+                .orderBy('created_at', 'desc');
 
             const result = await Knex(ETableNames.products)
                 .select('*')

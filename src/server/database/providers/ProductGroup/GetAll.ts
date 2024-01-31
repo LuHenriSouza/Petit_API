@@ -9,7 +9,8 @@ export const getAll = async (page: number, limit: number, filter: string, id = 0
             .where('id', '=', id)
             .orWhere('name', 'ilike', `%${filter}%`)
             .offset((page - 1) * limit)
-            .limit(limit);
+            .limit(limit)
+            .orderBy('id', 'desc');
 
         if (id > 0 && result.every(item => item.id !== id)) {
             const resultById = await Knex(ETableNames.groups)
