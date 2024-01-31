@@ -47,7 +47,7 @@ export const getProductsById: RequestHandler = async (req: Request<IParamProps, 
     }
 
     const result = await ProdGroupProvider.getProductsById(req.query.page || DEFAULT_PAGE, req.query.limit || DEFAULT_LIMIT, req.query.filter || DEFAULT_FILTER, req.params.id);
-    const count = await ProdGroupProvider.count(req.query.filter);
+    const count = await ProdGroupProvider.countProd(req.params.id, req.query.filter || DEFAULT_FILTER);
 
     if (result instanceof Error) {
         return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
