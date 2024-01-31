@@ -1,16 +1,17 @@
 import { ETableNames } from '../../ETableNames';
 import { Knex } from '../../knex';
 
-export const deleteProductById = async (prod_id: number): Promise<void | Error> => {
+export const deleteProductById = async (group_id: number, prod_id: number): Promise<void | Error> => {
     try {
-        const deleted = await Knex(ETableNames.product_groups).select('id').where('prod_id', prod_id).first();
+        const deleted = await Knex(ETableNames.product_groups).select('id').where('group_id', group_id).andWhere('prod_id', prod_id).first();
         if (deleted) {
             await Knex(ETableNames.product_groups)
-                .where('prod_id', prod_id)
+                .where('group_id', group_id)
+                .andWhere('prod_id', prod_id)
                 .del();
 
             return;
-        }else{
+        } else {
             return new Error('This Object has already been deleted');
         }
     } catch (e) {

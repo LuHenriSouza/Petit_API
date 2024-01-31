@@ -7,9 +7,8 @@ export const putProdInGroup = async (product: number, group: number): Promise<nu
         if (existGroup) {
             const prodExists = await Knex(ETableNames.products).select('id').where('id', product).andWhere('deleted_at', null).first();
             if (prodExists) {
-                const prodAlreadyInGroup = await Knex(ETableNames.product_groups).select('id').where('prod_id', product).first();
+                const prodAlreadyInGroup = await Knex(ETableNames.product_groups).select('id').where('group_id', group).andWhere('prod_id', product).first();
                 if (!prodAlreadyInGroup) {
-
 
                     const [result] = await Knex(ETableNames.product_groups)
                         .insert({ prod_id: product, group_id: group })
