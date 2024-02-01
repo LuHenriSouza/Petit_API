@@ -58,6 +58,7 @@ router.get('/sale/all', ensureAuthenticated, SaleDetailController.getSalesValida
 router.get('/sale/raw/:id', ensureAuthenticated, SaleDetailController.getByIdValidation, SaleDetailController.getById);
 router.put('/sale/:id', ensureAuthenticated, SaleDetailController.updateByIdValidation, SaleDetailController.updateById);
 router.get('/sale/all/:id', ensureAuthenticated, SaleDetailController.getAllValidation, SaleDetailController.getAllById);
+router.get('/sale/fincash/:id', ensureAuthenticated, SaleDetailController.getSalesByFincashValidation, SaleDetailController.getSalesByFincash);
 // router.delete('/sale/:id',ensureAuthenticated, SaleDetailController.deleteByIdValidation, SaleDetailController.deleteById);
 
 

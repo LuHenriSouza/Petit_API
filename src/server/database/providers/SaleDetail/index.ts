@@ -5,8 +5,9 @@ import * as getById from './GetById';
 import * as getSales from './GetSales';
 import * as countSales from './CountSales';
 import * as getAllById from './GetAllById';
-import * as countSaleDetails from './CountSaleDetails';
 import * as updateById from './UpdateById';
+import * as countSaleDetails from './CountSaleDetails';
+import * as getSalesByFincash from './GetSalesByFincash';
 // import * as deleteById from './DeleteById';
 
 export const SaleDetailProvider = {
@@ -17,7 +18,8 @@ export const SaleDetailProvider = {
     ...getSales,
     ...countSales,
     ...getAllById,
-    ...countSaleDetails,
     ...updateById,
+    ...countSaleDetails,
+    ...getSalesByFincash,
     // ...deleteById,
 };
