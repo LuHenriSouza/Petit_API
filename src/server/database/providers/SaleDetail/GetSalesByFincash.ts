@@ -10,47 +10,49 @@ interface IGetSales {
 
 export const getSalesByFincash = async (page: number, limit: number, fincash_id: number): Promise<IGetSales[] | Error> => {
     try {
-        const result = await Knex(ETableNames.saleDetails)
-            .select('sale_id')
-            .sum('pricetotal as totalValue')
-            .groupBy('sale_id')
+        const sales = await Knex(ETableNames.sales)
+            .select('id as sale_id', 'created_at', 'obs')
+            .where('fincash_id', fincash_id)
+            .orderBy('id', 'desc')
             .offset((page - 1) * limit)
-            .limit(limit)
-            .orderBy('sale_id', 'desc');
+            .limit(limit);
 
-        const salesPromises = result.map(async (row) => {
-
-            const sale = await Knex(ETableNames.sales)
-                .select('created_at')
-                .select('obs')
-                .where('id', row.sale_id)
-                .andWhere('fincash_id', fincash_id)
+        const salesPromises = sales.map(async (sale) => {
+            const saleDetailsResult = await Knex(ETableNames.saleDetails)
+                .select('sale_id')
+                .sum('pricetotal as totalValue')
+                .where('sale_id', sale.sale_id)
+                .groupBy('sale_id')
                 .first();
-            if (sale) {
-                return {
-                    sale_id: row.sale_id,
-                    created_at: sale.created_at,
-                    obs: sale.obs,
-                    totalValue: row.totalValue,
-                };
-            } else {
-                return {};
-            }
+
+            return {
+                sale_id: sale.sale_id,
+                created_at: sale.created_at,
+                obs: sale.obs,
+                totalValue: saleDetailsResult ? saleDetailsResult.totalValue : 0,
+            };
         });
 
-        const dirtySales = await Promise.all(salesPromises);
+        const salesDetails = await Promise.all(salesPromises);
 
-        const sales = dirtySales.filter(objeto => Object.keys(objeto).length > 0);
+        return salesDetails;
+    } catch (e) {
+        console.error(e);
+        return new Error('Get Failed');
+    }
+};
 
-        return sales.map((row) => ({
-            sale_id: row.sale_id,
-            obs: row.obs,
-            created_at: row.created_at,
-            totalValue: row.totalValue,
-        }));
+export const countSalesByFincash = async (fincash_id: number): Promise<number | Error> => {
+    try {
+        const [{ count }] = await Knex(ETableNames.sales)
+            .where('fincash_id', fincash_id)
+            .count<[{ count: number }]>('* as count');
 
+        if (Number.isInteger(Number(count))) return Number(count);
+
+        return new Error('Count Failed');
     } catch (e) {
         console.log(e);
-        return new Error('Get Failed');
+        return new Error('Count Failed');
     }
 };
