@@ -11,7 +11,7 @@ export const putProdInGroup = async (product: number, group: number): Promise<nu
                 if (!prodAlreadyInGroup) {
 
                     const [result] = await Knex(ETableNames.product_groups)
-                        .insert({ prod_id: product, group_id: group })
+                        .insert({ prod_id: product, group_id: group, created_at: Knex.fn.now()})
                         .returning('id');
 
                     if (typeof result === 'object') {

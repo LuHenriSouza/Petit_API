@@ -6,16 +6,13 @@ export const getProductsById = async (page: number, limit: number, filter: strin
     try {
         const group = await Knex(ETableNames.groups).select('*').where('id', group_id).first();
         if (group) {
-            const productIds = await Knex(ETableNames.product_groups)
-                .select('prod_id')
-                .where('group_id', group.id)
-                .orderBy('created_at', 'desc');
-
             const result = await Knex(ETableNames.products)
-                .select('*')
-                .whereIn('id', productIds.map((item) => item.prod_id))
-                .andWhere('name', 'ilike', `%${filter}%`)
-                .andWhere('deleted_at', null)
+                .select('products.*')
+                .join(ETableNames.product_groups, 'products.id', '=', 'product_groups.prod_id')
+                .where('product_groups.group_id', group_id)
+                .andWhere('products.name', 'ilike', `%${filter}%`)
+                .andWhere('products.deleted_at', null)
+                .orderBy('product_groups.created_at', 'desc')
                 .offset((page - 1) * limit)
                 .limit(limit);
 
