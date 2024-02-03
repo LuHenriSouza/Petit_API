@@ -1,4 +1,4 @@
-import { Knex } from './server/database/knex';
+// import { Knex } from './server/database/knex';
 import { server } from './server/server';
 import 'dotenv/config';
 
@@ -9,14 +9,15 @@ const startServer = () => {
     );
 };
 
-if (process.env.IS_LOCALHOST !== 'true') {
-    Knex.migrate.latest()
-        // .then(() => {
-        //     Knex.seed.run()
-        //         .then(() => startServer())
-        //         .catch(console.log);
-        // })
-        .catch(console.log);
-} else {
-    startServer();
-}
+// if (process.env.IS_LOCALHOST !== 'true') {
+//     Knex.migrate.latest()
+//         // .then(() => {
+//         //     Knex.seed.run()
+//         //         .then(() => startServer())
+//         //         .catch(console.log);
+//         // })
+//         .catch(console.log);
+//         startServer();
+// } else {
+// }
+startServer();
