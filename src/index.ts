@@ -1,5 +1,5 @@
 // import { Knex } from './server/database/knex';
-import { server } from './server/server';
+import server from './server/server';
 import 'dotenv/config';
 
 const startServer = () => {
