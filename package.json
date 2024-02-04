@@ -8,11 +8,12 @@
   "scripts": {
     "production": "node ./build/index.js",
     "start": "ts-node-dev ./src/index.ts",
-    "postinstall": "tsc",
+    "build": "tsc",
     "knex:migrate": "knex --knexfile ./src/server/database/knex/Environment.ts migrate:latest",
     "knex:rollback": "knex --knexfile ./src/server/database/knex/Environment.ts migrate:rollback",
     "knex:rollback-all": "knex --knexfile ./src/server/database/knex/Environment.ts migrate:rollback --all",
-    "knex:seed": "knex --knexfile ./src/server/database/knex/Environment.ts seed:run"
+    "knex:seed": "knex --knexfile ./src/server/database/knex/Environment.ts seed:run",
+    "vercel-build": "echo hello"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
