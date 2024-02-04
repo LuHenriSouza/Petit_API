@@ -3,7 +3,7 @@
   
   Ele tem o mesmo Proposito do projeto anterior mas, em busca de melhorar a experiência do usuário e 
   <br/>
-  também de aprender novas tecnologias, separei o projeto em <a href="https://github.com/LuHenriSouza/PetitSystem">Back-end</a> e <a href="https://github.com/LuHenriSouza/PetitSystem">Front-end</a>.
+  também de aprender novas tecnologias, separei o projeto em <a href="https://github.com/LuHenriSouza/Petit_API/">Back-end</a> e <a href="https://github.com/LuHenriSouza/petit-system-react">Front-end</a>.
   
   Este repositório apresenta o Back-end de meu projeto.
   
