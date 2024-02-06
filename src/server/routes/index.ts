@@ -44,8 +44,8 @@ router.delete('/fincash/:id', ensureAuthenticated, ensureAdmin, FincashControlle
 
 // CASHOUTFLOW
 router.post('/cashoutflow', ensureAuthenticated, CashOutflowController.createValidation, CashOutflowController.create);
-router.get('/cashoutflow/:id',ensureAuthenticated, CashOutflowController.getByIdValidation, CashOutflowController.getById);
-router.put('/cashoutflow/:id',ensureAuthenticated, CashOutflowController.updateByIdValidation, CashOutflowController.updateById);
+router.get('/cashoutflow/:id', ensureAuthenticated, CashOutflowController.getByIdValidation, CashOutflowController.getById);
+router.put('/cashoutflow/:id', ensureAuthenticated, CashOutflowController.updateByIdValidation, CashOutflowController.updateById);
 router.get('/cashoutflow/all/:id', ensureAuthenticated, CashOutflowController.getAllValidation, CashOutflowController.getAllById);
 // router.delete('/cashoutflow/:id',ensureAuthenticated, CashOutflowController.deleteByIdValidation, CashOutflowController.deleteById);
 
@@ -80,11 +80,11 @@ router.post('/group/product/remove/:id', ensureAuthenticated, ProdGroupControlle
 
 
 // STOCK
-router.get('/stock', StockController.getAllValidation, StockController.getAll);
-router.post('/stock', StockController.createValidation, StockController.create);
-router.get('/stock/:id', StockController.getAllByIdValidation, StockController.getAllById);
-router.put('/stock/:id', StockController.updateByIdValidation, StockController.updateById);
-router.delete('/stock/:id', StockController.deleteByIdValidation, StockController.deleteById);
+router.get('/stock', ensureAuthenticated, StockController.getAllValidation, StockController.getAll);
+router.post('/stock', ensureAuthenticated, StockController.createValidation, StockController.create);
+router.get('/stock/:id', ensureAuthenticated, StockController.getAllByIdValidation, StockController.getAllById);
+router.put('/stock/:id', ensureAuthenticated, ensureAdmin, StockController.updateByIdValidation, StockController.updateById);
+router.delete('/stock/:id', ensureAuthenticated, ensureAdmin, StockController.deleteByIdValidation, StockController.deleteById);
 
 
 
