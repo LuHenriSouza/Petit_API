@@ -3,8 +3,9 @@ import {
     ProductController,
     FincashController,
     SupplierController,
+    ValidityController,
     SaleDetailController,
-    CashOutflowController
+    CashOutflowController,
 } from './../controllers';
 import { Router } from 'express';
 import { StockController } from '../controllers/Stock';
@@ -94,6 +95,12 @@ router.get('/supplier/:id', ensureAuthenticated, SupplierController.getByIdValid
 router.post('/supplier', ensureAuthenticated, ensureAdmin, SupplierController.createValidation, SupplierController.create);
 router.put('/supplier/:id', ensureAuthenticated, ensureAdmin, SupplierController.updateByIdValidation, SupplierController.updateById);
 router.delete('/supplier/:id', ensureAuthenticated, ensureAdmin, SupplierController.deleteByIdValidation, SupplierController.deleteById);
+
+
+
+// VALIDITIES
+router.post('/validity', ensureAuthenticated, ValidityController.createValidation, ValidityController.create);
+
 
 
 

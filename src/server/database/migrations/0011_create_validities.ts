@@ -8,7 +8,7 @@ export async function up(knex: Knex): Promise<void> {
         table.bigInteger('prod_id').index().notNullable().references('id').inTable(ETableNames.products).onUpdate('CASCADE').onDelete('RESTRICT').unsigned();
         table.integer('quantity').notNullable().unsigned();
         table.dateTime('validity').notNullable();
-
+        table.timestamps(true, true);
     });
 }
 
