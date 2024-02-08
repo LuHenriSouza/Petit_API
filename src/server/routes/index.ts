@@ -100,6 +100,8 @@ router.delete('/supplier/:id', ensureAuthenticated, ensureAdmin, SupplierControl
 
 // VALIDITIES
 router.post('/validity', ensureAuthenticated, ValidityController.createValidation, ValidityController.create);
+router.get('/validity/all', ensureAuthenticated, ValidityController.getAllValidation, ValidityController.getAll);
+router.get('/validity/:id', ensureAuthenticated, ValidityController.getAllByIdValidation, ValidityController.getAllById);
 
 
 
