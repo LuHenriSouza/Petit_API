@@ -9,7 +9,7 @@ export const create = async (stock: Omit<IStock, 'id' | 'created_at' | 'updated_
             const stock_product = await Knex(ETableNames.stocks).select('*').where('prod_id', stock.prod_id).first();
             if (stock_product) {
                 const result = await Knex(ETableNames.stocks)
-                    .update({ stock: (stock_product.stock + stock.stock) })
+                    .update({ stock: (stock_product.stock + stock.stock), updated_at: Knex.fn.now() })
                     .where('id', stock_product.id);
                 if (typeof result === 'number') {
                     return result;

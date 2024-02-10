@@ -3,8 +3,7 @@ import { Knex } from '../../knex';
 
 export const count = async (): Promise<number | Error> => {
     try {
-        const [{ count }] = await Knex(ETableNames.products)
-            .where('deleted_at', null)
+        const [{ count }] = await Knex(ETableNames.stocks)
             .count<[{ count: number }]>('* as count');
         if (Number.isInteger(Number(count))) return Number(count);
 
