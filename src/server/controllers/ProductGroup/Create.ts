@@ -5,7 +5,7 @@ import { IGroup } from '../../database/models';
 import { ProdGroupProvider } from '../../database/providers/ProductGroup';
 import { StatusCodes } from 'http-status-codes';
 
-interface IBodyProps extends Omit<IGroup, 'id'> { }
+interface IBodyProps extends Omit<IGroup, 'id' | 'show'> { }
 
 const bodyValidation: yup.Schema<IBodyProps> = yup.object().shape({
     name: yup.string().required().min(3).max(30),

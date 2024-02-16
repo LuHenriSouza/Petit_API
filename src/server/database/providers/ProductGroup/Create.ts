@@ -2,7 +2,7 @@ import { ETableNames } from '../../ETableNames';
 import { Knex } from '../../knex';
 import { IGroup } from '../../models';
 
-export const create = async (group: Omit<IGroup, 'id'>): Promise<number | Error> => {
+export const create = async (group: Omit<IGroup, 'id' | 'show'>): Promise<number | Error> => {
     try {
         const [result] = await Knex(ETableNames.groups)
             .insert(group)
