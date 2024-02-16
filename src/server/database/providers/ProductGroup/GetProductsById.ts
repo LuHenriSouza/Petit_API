@@ -2,7 +2,14 @@ import { ETableNames } from '../../ETableNames';
 import { Knex } from '../../knex';
 import { IProduct } from '../../models';
 
-export const getProductsById = async (page: number, limit: number, filter: string, group_id: number): Promise<IProduct[] | Error> => {
+
+interface IReturn {
+    data: IProduct[]
+    show: boolean;
+}
+
+
+export const getProductsById = async (page: number, limit: number, filter: string, group_id: number): Promise<IReturn | Error> => {
     try {
         const group = await Knex(ETableNames.groups).select('*').where('id', group_id).first();
         if (group) {
@@ -16,7 +23,7 @@ export const getProductsById = async (page: number, limit: number, filter: strin
                 .offset((page - 1) * limit)
                 .limit(limit);
 
-            if (result) return result;
+            if (result) return { data: result, show: group.show };
 
             return new Error('Get Failed');
         } else {
