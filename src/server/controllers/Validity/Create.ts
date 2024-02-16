@@ -9,7 +9,6 @@ interface IBodyProps extends Omit<IValidity, 'id' | 'created_at' | 'updated_at'>
 
 const bodyValidation: yup.Schema<IBodyProps> = yup.object().shape({
     prod_id: yup.number().moreThan(0).required().integer(),
-    quantity: yup.number().moreThan(0).required(),
     validity: yup.date().required(),
 });
 

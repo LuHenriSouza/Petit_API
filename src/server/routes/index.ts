@@ -71,8 +71,10 @@ router.post('/register', ensureAuthenticated, ensureAdmin, UserController.create
 
 
 // GROUP
+router.get('/group/show', ensureAuthenticated, ProdGroupController.getShowGroups);
 router.get('/group', ensureAuthenticated, ProdGroupController.getAllValidation, ProdGroupController.getAll);
 router.post('/group', ensureAuthenticated, ProdGroupController.createValidation, ProdGroupController.create);
+router.put('/group/show/:id', ensureAuthenticated, ProdGroupController.updateShowValidation, ProdGroupController.updateShow);
 router.delete('/group/:id', ensureAuthenticated, ProdGroupController.deleteGroupByIdValidation, ProdGroupController.deleteGroupById);
 router.post('/group/product/:id', ensureAuthenticated, ProdGroupController.putProdInGroupValidation, ProdGroupController.putProdInGroup);
 router.get('/group/product/:id', ensureAuthenticated, ProdGroupController.getProductsByIdValidation, ProdGroupController.getProductsById);
@@ -102,6 +104,7 @@ router.delete('/supplier/:id', ensureAuthenticated, ensureAdmin, SupplierControl
 router.post('/validity', ensureAuthenticated, ValidityController.createValidation, ValidityController.create);
 router.get('/validity/all', ensureAuthenticated, ValidityController.getAllValidation, ValidityController.getAll);
 router.get('/validity/:id', ensureAuthenticated, ValidityController.getAllByIdValidation, ValidityController.getAllById);
+router.delete('/validity/:id', ensureAuthenticated, ValidityController.deleteByIdValidation, ValidityController.deleteById);
 
 
 

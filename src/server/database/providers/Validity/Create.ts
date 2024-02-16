@@ -7,15 +7,7 @@ export const create = async (validity: Omit<IValidity, 'id' | 'created_at' | 'up
         const product = await Knex(ETableNames.products).select('id').where('id', validity.prod_id).andWhere('deleted_at', null).first();
         if (product) {
             const already = await Knex(ETableNames.validities).select('*').where('prod_id', validity.prod_id).andWhere('validity', validity.validity).first();
-            if (already) {
-                const result = await Knex(ETableNames.validities)
-                    .update({ quantity: (already.quantity + validity.quantity), updated_at: Knex.fn.now() })
-                    .where('id', already.id);
-                if (typeof result === 'number') {
-                    return result;
-                }
-
-            } else {
+            if (!already) {
                 const [result] = await Knex(ETableNames.validities)
                     .insert(validity)
                     .returning('id');
@@ -26,6 +18,8 @@ export const create = async (validity: Omit<IValidity, 'id' | 'created_at' | 'up
                 } else if (typeof result === 'number') {
                     return result;
                 }
+            } else {
+                return Error('Validity already exists');
             }
         } else {
             return new Error('Product not found');
