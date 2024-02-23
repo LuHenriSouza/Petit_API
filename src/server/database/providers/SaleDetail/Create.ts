@@ -3,7 +3,7 @@ import { Knex } from '../../knex';
 import { ISaleDetails } from '../../models';
 
 
-export const create = async (saleDetails: Omit<ISaleDetails, 'id' | 'created_at' | 'updated_at' | 'pricetotal' | 'sale_id'>[]): Promise<number | Error> => {
+export const create = async (saleDetails: Omit<ISaleDetails, 'id' | 'created_at' | 'updated_at' | 'pricetotal' | 'sale_id'>[], obs?: string | null): Promise<number | Error> => {
     try {
         const fincash = await Knex(ETableNames.fincashs).select('id').where('isFinished', false).andWhere('deleted_at', null).first();
         if (fincash) {
@@ -17,7 +17,7 @@ export const create = async (saleDetails: Omit<ISaleDetails, 'id' | 'created_at'
 
             if (productsExist.length === productIds.length) {
 
-                const sale = await Knex(ETableNames.sales).insert({ fincash_id: fincash.id }).returning('id');
+                const sale = await Knex(ETableNames.sales).insert({ fincash_id: fincash.id, obs: obs }).returning('id');
                 if (sale) {
 
                     const resultPromises = saleDetails.flat().map(async (element) => {

@@ -7,6 +7,7 @@ export async function up(knex: Knex): Promise<void> {
         table.bigIncrements('id').primary().index();
         table.string('opener').notNullable().index();
         table.decimal('value').notNullable();
+        table.text('obs').nullable();
         table.decimal('finalValue');
         table.boolean('isFinished').defaultTo(false);
         table.dateTime('finalDate');
