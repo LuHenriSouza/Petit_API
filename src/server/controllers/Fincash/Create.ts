@@ -10,6 +10,7 @@ interface IBodyProps extends Omit<IFincash, 'id' | 'created_at' | 'updated_at' |
 const bodyValidation: yup.Schema<IBodyProps> = yup.object().shape({
     opener: yup.string().required().min(3).max(30),
     value: yup.number().required().min(0),
+    obs: yup.string().nullable(),
 
 });
 
