@@ -4,11 +4,12 @@ import { randNumber } from '../../../shared/services';
 
 export const deleteById = async (id: number): Promise<void | Error> => {
     try {
-        const deleted = await Knex(ETableNames.products).select('id','code').where('id', id).andWhere('deleted_at', null).first();
+        const deleted = await Knex(ETableNames.products).select('id', 'code').where('id', id).andWhere('deleted_at', null).first();
         if (deleted) {
+            await Knex(ETableNames.stocks).where('prod_id', id).del();
             const result = await Knex(ETableNames.products)
                 .update({
-                    code: deleted.code +'D'+ randNumber(20),
+                    code: deleted.code + 'D' + randNumber(20),
                     deleted_at: Knex.fn.now(),
                 })
                 .where('id', '=', id);
