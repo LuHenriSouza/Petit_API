@@ -25,8 +25,11 @@ export const create = async (saleDetails: Omit<ISaleDetails, 'id' | 'created_at'
                             .insert({ ...element, sale_id: sale[0].id, pricetotal: (element.price * element.quantity) })
                             .returning('id');
 
-                        const Stock = await Knex(ETableNames.stocks).select('*').where('prod_id', element.prod_id).first();
-                        console.log(Stock);
+                        let Stock = await Knex(ETableNames.stocks).select('*').where('prod_id', element.prod_id).first();
+                        if (!Stock) {
+                            Stock = { prod_id: element.prod_id, stock: 0 };
+                            await Knex(ETableNames.stocks).insert(Stock);
+                        }
                         await Knex(ETableNames.stocks).update({ stock: (Stock.stock - element.quantity), updated_at: Knex.fn.now() }).where('prod_id', element.prod_id);
 
                         return saleDetailId;
