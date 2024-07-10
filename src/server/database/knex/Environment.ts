@@ -12,14 +12,15 @@ export const development: Knex.Config = {
         directory: path.resolve(__dirname, '..', 'seeds'),
     },
     connection: {
-        host: 'petit-api.cd00qiusm57h.us-east-1.rds.amazonaws.com',
-        user: 'postgres',
-        database: 'petit_api',
-        password: '20032002l',
+        host: 'ep-snowy-hill-a4kez6vd-pooler.us-east-1.aws.neon.tech',
+        user: 'default',
+        database: 'verceldb',
+        password: '2ngkeqJpr3tf',
         port: 5432,
         ssl: {
             rejectUnauthorized: false
         },
+
 
     },
 };
