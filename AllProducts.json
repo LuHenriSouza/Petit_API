@@ -1,6 +1,146 @@
 {
     "Products": [
         {
+            "id": 174,
+            "code": "7894900500035",
+            "name": "Powerade Limão 500ml",
+            "sector": 1,
+            "price": "6.50",
+            "created_at": "2024-07-10T17:47:38.057Z",
+            "updated_at": "2024-07-11T17:58:54.612Z",
+            "deleted_at": null
+        },
+        {
+            "id": 176,
+            "code": "7894900504002",
+            "name": "Powerade Mix Frutas 500ml",
+            "sector": 1,
+            "price": "6.50",
+            "created_at": "2024-07-10T17:48:07.870Z",
+            "updated_at": "2024-07-11T17:58:48.032Z",
+            "deleted_at": null
+        },
+        {
+            "id": 178,
+            "code": "7894900503029",
+            "name": "Powerade Laranja 500ml",
+            "sector": 1,
+            "price": "6.50",
+            "created_at": "2024-07-10T17:48:28.113Z",
+            "updated_at": "2024-07-11T17:58:40.389Z",
+            "deleted_at": null
+        },
+        {
+            "id": 179,
+            "code": "7894900508017",
+            "name": "Powerade Frutas Tropicais 500ml",
+            "sector": 1,
+            "price": "6.50",
+            "created_at": "2024-07-10T17:49:04.986Z",
+            "updated_at": "2024-07-11T17:58:34.689Z",
+            "deleted_at": null
+        },
+        {
+            "id": 331,
+            "code": "fini",
+            "name": "Fini Sabores 15g",
+            "sector": 2,
+            "price": "2.00",
+            "created_at": "2024-07-11T16:48:58.312Z",
+            "updated_at": "2024-07-11T16:48:58.312Z",
+            "deleted_at": null
+        },
+        {
+            "id": 330,
+            "code": "7896336005917",
+            "name": "Paçoquita 15g",
+            "sector": 2,
+            "price": "2.00",
+            "created_at": "2024-07-11T16:47:32.910Z",
+            "updated_at": "2024-07-11T16:47:32.910Z",
+            "deleted_at": null
+        },
+        {
+            "id": 329,
+            "code": "7896336002725",
+            "name": "Paçoquita zero 18g",
+            "sector": 2,
+            "price": "2.50",
+            "created_at": "2024-07-11T16:47:00.715Z",
+            "updated_at": "2024-07-11T16:47:00.715Z",
+            "deleted_at": null
+        },
+        {
+            "id": 328,
+            "code": "7896732300289",
+            "name": "Galvani Doce Amendoim 73g",
+            "sector": 2,
+            "price": "3.00",
+            "created_at": "2024-07-11T16:26:02.567Z",
+            "updated_at": "2024-07-11T16:26:02.567Z",
+            "deleted_at": null
+        },
+        {
+            "id": 327,
+            "code": "78929340",
+            "name": "Stikadinho 12,3g",
+            "sector": 2,
+            "price": "1.50",
+            "created_at": "2024-07-11T16:22:13.562Z",
+            "updated_at": "2024-07-11T16:22:13.562Z",
+            "deleted_at": null
+        },
+        {
+            "id": 326,
+            "code": "7898364280359",
+            "name": "Pé de Moça",
+            "sector": 2,
+            "price": "3.00",
+            "created_at": "2024-07-11T16:16:39.138Z",
+            "updated_at": "2024-07-11T16:16:39.138Z",
+            "deleted_at": null
+        },
+        {
+            "id": 325,
+            "code": "doce",
+            "name": "doce diverso 3,00",
+            "sector": 2,
+            "price": "3.00",
+            "created_at": "2024-07-11T16:15:32.676Z",
+            "updated_at": "2024-07-11T16:15:32.676Z",
+            "deleted_at": null
+        },
+        {
+            "id": 324,
+            "code": "78939301",
+            "name": "Sonho de Valsa",
+            "sector": 2,
+            "price": "2.50",
+            "created_at": "2024-07-11T13:34:20.749Z",
+            "updated_at": "2024-07-11T13:34:20.749Z",
+            "deleted_at": null
+        },
+        {
+            "id": 323,
+            "code": "78939318",
+            "name": "Ouro Branco",
+            "sector": 2,
+            "price": "2.50",
+            "created_at": "2024-07-11T13:33:45.192Z",
+            "updated_at": "2024-07-11T13:33:45.192Z",
+            "deleted_at": null
+        },
+        {
+            "id": 322,
+            "code": "mel",
+            "name": "mel tubinho",
+            "sector": 2,
+            "price": "2.00",
+            "created_at": "2024-07-11T13:00:46.666Z",
+            "updated_at": "2024-07-11T13:00:46.666Z",
+            "deleted_at": null
+        },
+        {
             "id": 321,
             "code": "78938847",
             "name": "Halls Morango",
@@ -1421,16 +1561,6 @@
             "deleted_at": null
         },
         {
-            "id": 179,
-            "code": "7894900508017",
-            "name": "Powerade Frutas Tropicais 500ml",
-            "sector": 1,
-            "price": "6.00",
-            "created_at": "2024-07-10T17:49:04.986Z",
-            "updated_at": "2024-07-10T17:49:04.986Z",
-            "deleted_at": null
-        },
-        {
             "id": 177,
             "code": "9002490250270",
             "name": "Redbull Pitaya",
@@ -1441,26 +1571,6 @@
             "deleted_at": null
         },
         {
-            "id": 178,
-            "code": "7894900503029",
-            "name": "Powerade Laranja 500ml",
-            "sector": 1,
-            "price": "6.00",
-            "created_at": "2024-07-10T17:48:28.113Z",
-            "updated_at": "2024-07-10T17:48:28.113Z",
-            "deleted_at": null
-        },
-        {
-            "id": 176,
-            "code": "7894900504002",
-            "name": "Powerade Mix Frutas 500ml",
-            "sector": 1,
-            "price": "6.00",
-            "created_at": "2024-07-10T17:48:07.870Z",
-            "updated_at": "2024-07-10T17:48:07.870Z",
-            "deleted_at": null
-        },
-        {
             "id": 175,
             "code": "9002490247379",
             "name": "Redbull Melancia",
@@ -1468,16 +1578,6 @@
             "price": "12.00",
             "created_at": "2024-07-10T17:47:47.100Z",
             "updated_at": "2024-07-10T17:47:47.100Z",
-            "deleted_at": null
-        },
-        {
-            "id": 174,
-            "code": "7894900500035",
-            "name": "Powerade Limão 500ml",
-            "sector": 1,
-            "price": "6.00",
-            "created_at": "2024-07-10T17:47:38.057Z",
-            "updated_at": "2024-07-10T17:47:38.057Z",
             "deleted_at": null
         },
         {
