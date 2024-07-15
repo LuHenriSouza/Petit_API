@@ -4,6 +4,7 @@ import * as getById from './GetById';
 import * as getSales from './GetSales';
 import * as updateById from './UpdateById';
 import * as getAllById from './GetAllById';
+import * as getAllByFincash from './GetAllByFincash';
 import * as getSalesByFincash from './GetSalesByFincash';
 // import * as deleteById from './DeleteById';
 
@@ -14,6 +15,7 @@ export const SaleDetailController = {
     ...getSales,
     ...updateById,
     ...getAllById,
+    ...getAllByFincash,
     ...getSalesByFincash,
     // ...deleteById,
 
