@@ -27,7 +27,7 @@ const queryValidation: yup.Schema<IQueryProps> = yup.object().shape({
 
 });
 
-export const getAllValidation = validation({
+export const getAllByIdValidation = validation({
     query: queryValidation,
     params: paramsValidation,
 
