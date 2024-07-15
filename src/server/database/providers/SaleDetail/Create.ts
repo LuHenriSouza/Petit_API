@@ -3,7 +3,7 @@ import { Knex } from '../../knex';
 import { ISaleDetails } from '../../models';
 
 
-export const create = async (saleDetails: Omit<ISaleDetails, 'id' | 'created_at' | 'updated_at' | 'pricetotal' | 'sale_id'>[]): Promise<number | Error> => {
+export const create = async (saleDetails: Omit<ISaleDetails, 'id' | 'created_at' | 'updated_at' | 'pricetotal' | 'sale_id'>[], obs?: string | null): Promise<number | Error> => {
     try {
         const fincash = await Knex(ETableNames.fincashs).select('id').where('isFinished', false).andWhere('deleted_at', null).first();
         if (fincash) {
@@ -17,13 +17,20 @@ export const create = async (saleDetails: Omit<ISaleDetails, 'id' | 'created_at'
 
             if (productsExist.length === productIds.length) {
 
-                const sale = await Knex(ETableNames.sales).insert({ fincash_id: fincash.id }).returning('id');
+                const sale = await Knex(ETableNames.sales).insert({ fincash_id: fincash.id, obs: obs }).returning('id');
                 if (sale) {
 
                     const resultPromises = saleDetails.flat().map(async (element) => {
                         const [saleDetailId] = await Knex(ETableNames.saleDetails)
                             .insert({ ...element, sale_id: sale[0].id, pricetotal: (element.price * element.quantity) })
                             .returning('id');
+
+                        let Stock = await Knex(ETableNames.stocks).select('*').where('prod_id', element.prod_id).first();
+                        if (!Stock) {
+                            Stock = { prod_id: element.prod_id, stock: 0 };
+                            await Knex(ETableNames.stocks).insert(Stock);
+                        }
+                        await Knex(ETableNames.stocks).update({ stock: (Stock.stock - element.quantity), updated_at: Knex.fn.now() }).where('prod_id', element.prod_id);
 
                         return saleDetailId;
                     });
@@ -34,6 +41,8 @@ export const create = async (saleDetails: Omit<ISaleDetails, 'id' | 'created_at'
                 } else {
                     return new Error('Unknown Error');
                 }
+
+
             } else {
                 return new Error('One or more products not found, check the product IDs');
             }

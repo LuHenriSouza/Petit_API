@@ -6,7 +6,9 @@ import * as getSales from './GetSales';
 import * as countSales from './CountSales';
 import * as getAllById from './GetAllById';
 import * as updateById from './UpdateById';
+import * as getAllByFincash from './GetAllByFincash';
 import * as countSaleDetails from './CountSaleDetails';
+import * as countAllByFincash from './CountAllByFincash';
 import * as getSalesByFincash from './GetSalesByFincash';
 // import * as deleteById from './DeleteById';
 
@@ -19,7 +21,9 @@ export const SaleDetailProvider = {
     ...countSales,
     ...getAllById,
     ...updateById,
+    ...getAllByFincash,
     ...countSaleDetails,
+    ...countAllByFincash,
     ...getSalesByFincash,
     // ...deleteById,
 };

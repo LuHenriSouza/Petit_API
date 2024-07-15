@@ -27,13 +27,13 @@ const queryValidation: yup.Schema<IQueryProps> = yup.object().shape({
 
 });
 
-export const getAllByIdValidation = validation({
+export const getAllByFincashValidation = validation({
     query: queryValidation,
     params: paramsValidation,
 
 });
 
-export const getAllById: RequestHandler = async (req: Request<IParamProps, {}, {}, IQueryProps>, res: Response) => {
+export const getAllByFincash: RequestHandler = async (req: Request<IParamProps, {}, {}, IQueryProps>, res: Response) => {
     if (!req.params.id) {
         return res.status(StatusCodes.BAD_REQUEST).json({
             errors: {
@@ -42,8 +42,8 @@ export const getAllById: RequestHandler = async (req: Request<IParamProps, {}, {
         });
     }
 
-    const result = await SaleDetailProvider.getAllById(req.query.page || DEFAULT_PAGE, req.query.limit || DEFAULT_LIMIT, req.params.id);
-    const count = await SaleDetailProvider.countSaleDetails(req.params.id);
+    const result = await SaleDetailProvider.getAllByFincash(req.query.page || DEFAULT_PAGE, req.query.limit || DEFAULT_LIMIT, req.params.id);
+    const count = await SaleDetailProvider.countAllByFincash(req.params.id);
 
     if (result instanceof Error) {
         return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({

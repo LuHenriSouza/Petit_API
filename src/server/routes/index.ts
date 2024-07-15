@@ -32,8 +32,8 @@ router.delete('/product/:id', ensureAuthenticated, ProductController.deleteByIdV
 
 
 // FINCASH
-router.get('/fincash/verify', ensureAuthenticated, FincashController.getByFinished);
 router.get('/fincash/last', ensureAuthenticated, FincashController.getLastFincash);
+router.get('/fincash/verify', ensureAuthenticated, FincashController.getByFinished);
 router.get('/fincash', ensureAuthenticated, FincashController.getAllValidation, FincashController.getAll);
 router.post('/fincash', ensureAuthenticated, FincashController.createValidation, FincashController.create);
 router.get('/fincash/:id', ensureAuthenticated, FincashController.getByIdValidation, FincashController.getById);
@@ -58,8 +58,9 @@ router.post('/sale', ensureAuthenticated, SaleDetailController.createValidation,
 router.get('/sale/all', ensureAuthenticated, SaleDetailController.getSalesValidation, SaleDetailController.getSales);
 router.get('/sale/raw/:id', ensureAuthenticated, SaleDetailController.getByIdValidation, SaleDetailController.getById);
 router.put('/sale/:id', ensureAuthenticated, SaleDetailController.updateByIdValidation, SaleDetailController.updateById);
-router.get('/sale/all/:id', ensureAuthenticated, SaleDetailController.getAllValidation, SaleDetailController.getAllById);
+router.get('/sale/all/:id', ensureAuthenticated, SaleDetailController.getAllByIdValidation, SaleDetailController.getAllById);
 router.get('/sale/fincash/:id', ensureAuthenticated, SaleDetailController.getSalesByFincashValidation, SaleDetailController.getSalesByFincash);
+router.get('/sale/complete/:id', ensureAuthenticated, ensureAdmin, SaleDetailController.getAllByFincashValidation, SaleDetailController.getAllByFincash);
 // router.delete('/sale/:id',ensureAuthenticated, SaleDetailController.deleteByIdValidation, SaleDetailController.deleteById);
 
 
