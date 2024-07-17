@@ -2,18 +2,23 @@ import { ETableNames } from '../../ETableNames';
 import { Knex } from '../../knex';
 import { IFincash } from '../../models';
 
-export const finish = async (id: number, fincash: Omit<IFincash, 'id' | 'created_at' | 'updated_at' | 'opener' | 'value' | 'finalDate' | 'isFinished'>): Promise<void | Error> => {
+type TFincashParam = Omit<IFincash, 'id' | 'created_at' | 'updated_at' | 'opener' | 'value' | 'finalDate' | 'isFinished'>;
+
+export const finish = async (id: number, fincash: TFincashParam): Promise<void | Error> => {
     try {
         const [{ count }] = await Knex(ETableNames.fincashs).where('id', id).count<[{ count: number }]>('* as count');
         if (count === 0) return Error('Fincash not found');
 
         const finished = await Knex(ETableNames.fincashs).select('*').where('id', id).andWhere('isFinished', true).first();
         if (!finished) {
+
+            const totalValue = await getTotalValue(id);
             const result = await Knex(ETableNames.fincashs)
                 .update({
                     ...fincash,
                     finalDate: Knex.fn.now(),
                     isFinished: true,
+                    totalValue
                 })
                 .where('id', id);
 
@@ -30,4 +35,13 @@ export const finish = async (id: number, fincash: Omit<IFincash, 'id' | 'created
         console.log(e);
         return new Error('Finish Failed');
     }
+};
+
+
+const getTotalValue = async (fincash_id: number) => {
+    const response = await Knex(ETableNames.sales)
+        .join(ETableNames.saleDetails, `${ETableNames.sales}.id`, `${ETableNames.saleDetails}.sale_id`)
+        .where(`${ETableNames.sales}.fincash_id`, fincash_id)
+        .sum(`${ETableNames.saleDetails}.pricetotal`);
+    return response[0].sum;
 };
