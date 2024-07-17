@@ -6,6 +6,7 @@ export interface IFincash {
     isFinished: boolean,
     finalValue?: number | null,
     totalValue?: number | null,
+    cardValue?: number | null,
     finalDate?: Date | null,
     diferenceLastFincash?: number | null,
     break?: number | null,

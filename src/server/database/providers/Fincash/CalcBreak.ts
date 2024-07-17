@@ -3,7 +3,7 @@ import { Knex } from '../../knex';
 import { IFincash } from '../../models';
 import { CashOutflowProvider } from '../CashOutflow';
 
-export const calcBreak = async (cardValue: number, fincash_id: number): Promise<void | Error> => {
+export const calcBreak = async (cardValue: number, fincash_id: number): Promise<number | Error> => {
     try {
         const fincash = await Knex(ETableNames.fincashs).select('*').where('id', fincash_id).first();
         if (fincash) {
@@ -13,12 +13,15 @@ export const calcBreak = async (cardValue: number, fincash_id: number): Promise<
 
                     const result = await Knex(ETableNames.fincashs)
                         .update({
+                            cardValue,
                             break: breakCalc,
                         })
                         .where('id', fincash_id);
 
                     if (result > 0) {
-                        return;
+                        return breakCalc;
+                    } else {
+                        return Error('Internal Server Error');
                     }
                 } else {
                     return breakCalc; // ERROR
@@ -38,14 +41,17 @@ export const calcBreak = async (cardValue: number, fincash_id: number): Promise<
 
 
 const getBreak = async (fincash: IFincash, cardValue: number): Promise<number | Error> => {
-    if (fincash.finalValue && fincash.totalValue) {
+    if ((fincash.finalValue || fincash.finalValue == null) && (fincash.totalValue || fincash.totalValue == null)) {
+        if (fincash.finalValue == null) fincash.finalValue = 0;
+        if (fincash.totalValue == null) fincash.totalValue = 0;
         const total = await CashOutflowProvider.getTotalById(fincash.id);
         if (!(total instanceof Error)) {
-            const TotalCash = (fincash.finalValue - fincash.value) + total;
-            const totalValue = TotalCash + cardValue;
-            const realBreak = totalValue - fincash.totalValue;
+            const TotalCash = Number((fincash.finalValue - fincash.value)) + Number(total);
+            const totalValue = TotalCash + Number(cardValue);
+            const realBreak = totalValue - Number(fincash.totalValue);
             return realBreak;
         }
+        return total;
     }
-    return new Error('Get break error');
+    return new Error('Get break error (provider)');
 };
