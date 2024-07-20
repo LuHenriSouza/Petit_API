@@ -3,6 +3,7 @@ import * as create from './Create';
 import * as getAll from './GetAll';
 import * as finish from './Finish';
 import * as getById from './GetById';
+import * as updateObs from './UpdateObs';
 import * as calcBreak from './CalcBreak';
 import * as updateById from './UpdateById';
 import * as deleteById from './DeleteById';
@@ -17,6 +18,7 @@ export const FincashProvider = {
     ...getAll,
     ...finish,
     ...getById,
+    ...updateObs,
     ...calcBreak,
     ...updateById,
     ...deleteById,
