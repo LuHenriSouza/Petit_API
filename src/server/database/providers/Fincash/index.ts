@@ -9,6 +9,7 @@ import * as updateById from './UpdateById';
 import * as deleteById from './DeleteById';
 import * as getByFinished from './GetByFinished';
 import * as getLastFincash from './GetLastFincash';
+import * as getDataById from './querry/GetDataById';
 import * as getTotalByFincash from './GetTotalByFincash';
 
 
@@ -22,6 +23,7 @@ export const FincashProvider = {
     ...calcBreak,
     ...updateById,
     ...deleteById,
+    ...getDataById,
     ...getByFinished,
     ...getLastFincash,
     ...getTotalByFincash,
