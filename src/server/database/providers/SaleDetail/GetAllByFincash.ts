@@ -1,5 +1,6 @@
 import { ETableNames } from '../../ETableNames';
 import { Knex } from '../../knex';
+import { IFincash } from '../../models';
 
 interface IItem {
     id: number,
@@ -17,8 +18,12 @@ interface IItem {
 }
 
 interface IComplete {
-    id: number,
-    fincash_id: number,
+    fincash: IFincash,
+    sales: ISaleComplete[]
+}
+
+interface ISaleComplete {
+    sale_id: number,
     obs: string,
     products: {
         code: string,
@@ -35,39 +40,50 @@ interface IComplete {
 }
 
 interface IResponse {
-    data: IComplete[];
+    data: IComplete;
     totalFincashValue: number;
 }
 
 export const getAllByFincash = async (page: number, limit: number, fincash_id: number): Promise<IResponse | Error> => {
     try {
-        const data: IItem[] = await Knex(ETableNames.sales)
-            .join(ETableNames.saleDetails, `${ETableNames.sales}.id`, `${ETableNames.saleDetails}.sale_id`)
-            .join(ETableNames.products, `${ETableNames.products}.id`, `${ETableNames.saleDetails}.prod_id`)
-            .where(`${ETableNames.sales}.fincash_id`, fincash_id)
-            .offset((page - 1) * limit)
-            .limit(limit)
-            .select(
-                `${ETableNames.sales}.id`,
-                `${ETableNames.sales}.fincash_id`,
-                `${ETableNames.sales}.obs`,
+        const fincash = await Knex(ETableNames.fincashs).select('*').where('id', fincash_id).first();
+        if (fincash) {
+            const data: IItem[] = await Knex(ETableNames.sales)
+                .join(ETableNames.saleDetails, `${ETableNames.sales}.id`, `${ETableNames.saleDetails}.sale_id`)
+                .join(ETableNames.products, `${ETableNames.products}.id`, `${ETableNames.saleDetails}.prod_id`)
+                .where(`${ETableNames.sales}.fincash_id`, fincash_id)
+                .offset((page - 1) * limit)
+                .limit(limit)
+                .select(
+                    `${ETableNames.sales}.id`,
+                    `${ETableNames.sales}.obs`,
 
-                `${ETableNames.products}.code`,
-                `${ETableNames.products}.name`,
-                `${ETableNames.products}.price as prod_price`,
-                `${ETableNames.products}.sector`,
+                    `${ETableNames.products}.code`,
+                    `${ETableNames.products}.name`,
+                    `${ETableNames.products}.price as prod_price`,
+                    `${ETableNames.products}.sector`,
 
-                `${ETableNames.saleDetails}.quantity`,
-                `${ETableNames.saleDetails}.price as solded_price`,
-                `${ETableNames.saleDetails}.pricetotal`,
+                    `${ETableNames.saleDetails}.quantity`,
+                    `${ETableNames.saleDetails}.price as solded_price`,
+                    `${ETableNames.saleDetails}.pricetotal`,
 
-                `${ETableNames.sales}.created_at`,
-                `${ETableNames.sales}.updated_at`,
-            );
+                    `${ETableNames.sales}.created_at`,
+                    `${ETableNames.sales}.updated_at`,
+                );
 
-        const result = groupById(data);
+            const result = groupById(data);
+            const totalFincashValue = result.reduce((a, b) => a + b.pricetotal_all_products, 0);
 
-        return result;
+            return {
+                data: {
+                    fincash,
+                    sales: result,
+                },
+                totalFincashValue
+            };
+        } else {
+            return new Error('Fincash Not Found');
+        }
 
     } catch (e) {
         console.log(e);
@@ -75,14 +91,13 @@ export const getAllByFincash = async (page: number, limit: number, fincash_id: n
     }
 };
 
-const groupById = (arr: IItem[]) => {
-    const grouped: Record<number, IComplete> = {};
+const groupById = (arr: IItem[]): ISaleComplete[] => {
+    const grouped: Record<number, ISaleComplete> = {};
 
     arr.forEach(obj => {
         if (!grouped[obj.id]) {
             grouped[obj.id] = {
-                id: obj.id,
-                fincash_id: obj.fincash_id,
+                sale_id: obj.id,
                 obs: obj.obs,
                 products: [],
                 pricetotal_all_products: 0,
@@ -104,6 +119,6 @@ const groupById = (arr: IItem[]) => {
         grouped[obj.id].pricetotal_all_products += Number(obj.pricetotal);
     });
     const data = Object.values(grouped);
-    const totalFincashValue = data.reduce((a, b) => a + b.pricetotal_all_products, 0);
-    return { data, totalFincashValue };
+
+    return data;
 };

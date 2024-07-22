@@ -1,4 +1,16 @@
-import { IProduct, ISaleDetails, IUser } from '../../models';
+import {
+    IUser,
+    ISale,
+    IGroup,
+    IStock,
+    IProduct,
+    IFincash,
+    ISupplier,
+    IValidity,
+    ICashOutflow,
+    ISaleDetails,
+    IProduct_group,
+} from '../../models';
 
 declare module 'knex/types/tables' {
     interface Tables {
@@ -11,5 +23,7 @@ declare module 'knex/types/tables' {
         groups: IGroup;
         product_groups: IProduct_group;
         users: IUser;
+        suppliers: ISupplier;
+        validitier: IValidity;
     }
 }

@@ -37,9 +37,13 @@ router.get('/fincash/verify', ensureAuthenticated, FincashController.getByFinish
 router.get('/fincash', ensureAuthenticated, FincashController.getAllValidation, FincashController.getAll);
 router.post('/fincash', ensureAuthenticated, FincashController.createValidation, FincashController.create);
 router.get('/fincash/:id', ensureAuthenticated, FincashController.getByIdValidation, FincashController.getById);
-// router.put('/fincash/:id',ensureAuthenticated, FincashController.updateByIdValidation, FincashController.updateById);
 router.put('/fincash/finish/:id', ensureAuthenticated, FincashController.updateByIdValidation, FincashController.finish);
+router.put('/fincash/obs/:id', ensureAuthenticated,ensureAdmin, FincashController.updateObsValidation, FincashController.updateObs);
 router.delete('/fincash/:id', ensureAuthenticated, ensureAdmin, FincashController.deleteByIdValidation, FincashController.deleteById);
+router.post('/fincash/addcard/:id', ensureAuthenticated, ensureAdmin, FincashController.calcBreakValidation, FincashController.calcBreak);
+router.post('/fincash/data/:id', ensureAuthenticated, ensureAdmin, FincashController.getDataByIdValidation, FincashController.getDataById);
+router.get('/total-value/fincash/:id', ensureAuthenticated, FincashController.getTotalByFincashValidation, FincashController.getTotalByFincash);
+// router.put('/fincash/:id',ensureAuthenticated, FincashController.updateByIdValidation, FincashController.updateById);
 
 
 
@@ -48,6 +52,7 @@ router.post('/cashoutflow', ensureAuthenticated, CashOutflowController.createVal
 router.get('/cashoutflow/:id', ensureAuthenticated, CashOutflowController.getByIdValidation, CashOutflowController.getById);
 router.put('/cashoutflow/:id', ensureAuthenticated, CashOutflowController.updateByIdValidation, CashOutflowController.updateById);
 router.get('/cashoutflow/all/:id', ensureAuthenticated, CashOutflowController.getAllValidation, CashOutflowController.getAllById);
+router.get('/cashoutflow/total/:id', ensureAuthenticated, CashOutflowController.getTotalByIdValidation, CashOutflowController.getTotalById);
 // router.delete('/cashoutflow/:id',ensureAuthenticated, CashOutflowController.deleteByIdValidation, CashOutflowController.deleteById);
 
 
