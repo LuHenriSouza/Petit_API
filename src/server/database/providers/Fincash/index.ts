@@ -7,6 +7,7 @@ import * as updateObs from './UpdateObs';
 import * as calcBreak from './CalcBreak';
 import * as updateById from './UpdateById';
 import * as deleteById from './DeleteById';
+import * as countData from './querry/CountData';
 import * as getByFinished from './GetByFinished';
 import * as getLastFincash from './GetLastFincash';
 import * as getDataById from './querry/GetDataById';
@@ -19,6 +20,7 @@ export const FincashProvider = {
     ...getAll,
     ...finish,
     ...getById,
+    ...countData,
     ...updateObs,
     ...calcBreak,
     ...updateById,
