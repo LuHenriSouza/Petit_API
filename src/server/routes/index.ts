@@ -22,6 +22,7 @@ router.get('/superuser', UserController.createSuperUser);
 
 
 // PRODUCT
+router.get('/product/per-sector', ensureAuthenticated, ProductController.getSectorQuantity);
 router.get('/product', ensureAuthenticated, ProductController.getAllValidation, ProductController.getAll);
 router.post('/product', ensureAuthenticated, ProductController.createValidation, ProductController.create);
 router.get('/product/:id', ensureAuthenticated, ProductController.getByIdValidation, ProductController.getById);

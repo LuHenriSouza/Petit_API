@@ -4,6 +4,7 @@ import * as getById from './GetById';
 import * as getByCode from './GetByCode';
 import * as updateById from './UpdateById';
 import * as deleteById from './DeleteById';
+import * as getSectorQuantity from './query/GetSectorQuantity';
 
 export const ProductController = {
     ...create,
@@ -12,4 +13,5 @@ export const ProductController = {
     ...getByCode,
     ...updateById,
     ...deleteById,
+    ...getSectorQuantity,
 };
