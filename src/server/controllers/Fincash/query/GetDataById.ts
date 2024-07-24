@@ -29,6 +29,7 @@ const bodyValidation: yup.Schema<OrderByObj> = yup.object().shape({
     column: yup.string().oneOf(Object.values(EColumnsOrderBy)).required(),
     order: yup.string().oneOf(['asc', 'desc']).required(),
     sectors: yup.array().of(yup.number().required()).required(),
+    grou_id: yup.number().moreThan(0).nullable(),
 });
 
 const queryValidation: yup.Schema<IQueryProps> = yup.object().shape({
@@ -61,7 +62,7 @@ export const getDataById = async (req: Request<IParamProps, {}, OrderByObj, IQue
         req.query.filter || DEFAULT_FILTER,
     );
 
-    const count = await FincashProvider.countData(req.params.id, req.query.filter || DEFAULT_FILTER, req.body.sectors);
+    const count = await FincashProvider.countData(req.params.id, req.query.filter || DEFAULT_FILTER, req.body.sectors, req.body.group_id);
     
     if (result instanceof Error) {
         return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
