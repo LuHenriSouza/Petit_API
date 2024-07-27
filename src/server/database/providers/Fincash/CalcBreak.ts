@@ -11,15 +11,18 @@ export const calcBreak = async (cardValue: number, fincash_id: number): Promise<
                 const breakCalc = await getBreak(fincash, cardValue);
                 if (!(breakCalc instanceof Error)) {
 
+                    const { realBreak, invoicing } = breakCalc;
+
                     const result = await Knex(ETableNames.fincashs)
                         .update({
                             cardValue,
-                            break: breakCalc,
+                            invoicing,
+                            break: realBreak,
                         })
                         .where('id', fincash_id);
 
                     if (result > 0) {
-                        return breakCalc;
+                        return realBreak;
                     } else {
                         return Error('Internal Server Error');
                     }
@@ -40,16 +43,16 @@ export const calcBreak = async (cardValue: number, fincash_id: number): Promise<
 };
 
 
-const getBreak = async (fincash: IFincash, cardValue: number): Promise<number | Error> => {
+const getBreak = async (fincash: IFincash, cardValue: number): Promise<{ realBreak: number, invoicing: number } | Error> => {
     if ((fincash.finalValue || fincash.finalValue == null) && (fincash.totalValue || fincash.totalValue == null)) {
         if (fincash.finalValue == null) fincash.finalValue = 0;
         if (fincash.totalValue == null) fincash.totalValue = 0;
         const total = await CashOutflowProvider.getTotalById(fincash.id);
         if (!(total instanceof Error)) {
             const TotalCash = Number((fincash.finalValue - fincash.value)) + Number(total);
-            const totalValue = TotalCash + Number(cardValue);
-            const realBreak = totalValue - Number(fincash.totalValue);
-            return realBreak;
+            const invoicing = TotalCash + Number(cardValue);
+            const realBreak = invoicing - Number(fincash.totalValue);
+            return { realBreak, invoicing };
         }
         return total;
     }

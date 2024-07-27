@@ -7,6 +7,8 @@ export interface IFincash {
     finalValue?: number | null,
     totalValue?: number | null,
     cardValue?: number | null,
+    invoicing?: number | null,
+    profit?: number | null,
     finalDate?: Date | null,
     diferenceLastFincash?: number | null,
     break?: number | null,
