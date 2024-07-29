@@ -50,7 +50,6 @@ export const getDataById = async (id: number, orderBy: OrderByObj, page: number,
             .where(`${ETableNames.sales}.fincash_id`, id)
             .andWhere(`${ETableNames.products}.name`, 'ilike', `%${filter}%`)
             .andWhere(function () {
-                console.log(orderBy);
                 if (orderBy.group_id) {
                     this.where(`${ETableNames.product_groups}.group_id`, orderBy.group_id);
                 }
