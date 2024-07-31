@@ -17,7 +17,8 @@ export const getDataByDate = async (init: Date, end: Date): Promise<IResponse[] 
                 'totalValue',
                 'finalDate'
             )
-            .whereBetween('finalDate', [init, end]);
+            .whereBetween('finalDate', [init, end])
+            .orderBy('finalDate');
 
         return result;
     } catch (error) {

@@ -11,6 +11,7 @@ import * as countData from './querry/CountData';
 import * as getByFinished from './GetByFinished';
 import * as getLastFincash from './GetLastFincash';
 import * as getDataById from './querry/GetDataById';
+import * as getDataByDate from './querry/GetDataByDate';
 import * as getTotalByFincash from './GetTotalByFincash';
 
 
@@ -27,6 +28,7 @@ export const FincashProvider = {
     ...deleteById,
     ...getDataById,
     ...getByFinished,
+    ...getDataByDate,
     ...getLastFincash,
     ...getTotalByFincash,
     

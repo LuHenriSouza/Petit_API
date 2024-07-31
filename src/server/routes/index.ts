@@ -35,6 +35,7 @@ router.delete('/product/:id', ensureAuthenticated, ProductController.deleteByIdV
 // FINCASH
 router.get('/fincash/last', ensureAuthenticated, FincashController.getLastFincash);
 router.get('/fincash/verify', ensureAuthenticated, FincashController.getByFinished);
+router.get('/data/month/current', ensureAuthenticated, ensureAdmin, FincashController.getCurrentMonth);
 router.get('/fincash', ensureAuthenticated, FincashController.getAllValidation, FincashController.getAll);
 router.post('/fincash', ensureAuthenticated, FincashController.createValidation, FincashController.create);
 router.get('/fincash/:id', ensureAuthenticated, FincashController.getByIdValidation, FincashController.getById);

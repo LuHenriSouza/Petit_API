@@ -9,6 +9,7 @@ import * as getByFinished from './GetByFinished';
 import * as getDataById from './query/GetDataById';
 import * as getLastFincash from './GetLastFincash';
 import * as getTotalByFincash from './GetTotalByFincash';
+import * as getCurrentMonth from './query/getCurrentMonth';
 // import * as updateById from './UpdateById';
 
 export const FincashController = {
@@ -22,6 +23,7 @@ export const FincashController = {
     ...getDataById,
     ...getByFinished,
     ...getLastFincash,
+    ...getCurrentMonth,
     ...getTotalByFincash,
     // ...updateById,
 
