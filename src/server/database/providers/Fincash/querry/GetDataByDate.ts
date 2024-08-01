@@ -5,6 +5,7 @@ export interface IResponse {
     id: number;
     cardValue: number;
     totalValue: number;
+    invoicing: number;
     finalDate: Date;
 }
 
@@ -15,6 +16,7 @@ export const getDataByDate = async (init: Date, end: Date): Promise<IResponse[] 
                 'id',
                 'cardValue',
                 'totalValue',
+                'invoicing',
                 'finalDate'
             )
             .whereBetween('finalDate', [init, end])
