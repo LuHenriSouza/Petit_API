@@ -21,7 +21,7 @@ export const getSales = async (page: number, limit: number): Promise<IGetSales[]
                 Knex.raw('SUM(sale_details.pricetotal) as totalValue')
             )
             .groupBy(`${ETableNames.saleDetails}.sale_id`)
-            .orderBy(`${ETableNames.saleDetails}.sale_id`)
+            .orderBy(`${ETableNames.saleDetails}.sale_id`, 'desc')
             .offset((page - 1) * limit)
             .limit(limit);
 

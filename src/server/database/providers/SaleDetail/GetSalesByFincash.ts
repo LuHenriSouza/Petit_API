@@ -20,7 +20,7 @@ export const getSalesByFincash = async (page: number, limit: number, fincash_id:
             )
             .where(`${ETableNames.sales}.fincash_id`, fincash_id)
             .groupBy(`${ETableNames.sales}.id`)
-            .orderBy(`${ETableNames.sales}.id`)
+            .orderBy(`${ETableNames.sales}.id`, 'desc')
             .offset((page - 1) * limit)
             .limit(limit);
         console.log(result);
