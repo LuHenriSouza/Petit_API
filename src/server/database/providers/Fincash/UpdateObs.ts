@@ -3,7 +3,6 @@ import { Knex } from '../../knex';
 
 export const updateObs = async (id: number, data: { obs: string }): Promise<void | Error> => {
     try {
-        console.log(data);
         const result = await Knex(ETableNames.fincashs)
             .update({
                 ...data,

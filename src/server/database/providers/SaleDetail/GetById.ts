@@ -10,8 +10,6 @@ export const getById = async (id: number): Promise<ISale | Error> => {
             .first();
 
         if (result) return result;
-        console.log('Error:');
-        console.log(result);
         return new Error('Get By ID Failed NUM TA');
     } catch (e) {
         console.log(e);

@@ -18,7 +18,6 @@ export const countData = async (id: number, filter = '', setors: number[], group
             .whereIn(`${ETableNames.products}.sector`, setors)
             .countDistinct(`${ETableNames.saleDetails}.prod_id as count`);
 
-        console.log(count);
         if (Number.isInteger(Number(count))) return Number(count);
 
         return new Error('Count Failed');

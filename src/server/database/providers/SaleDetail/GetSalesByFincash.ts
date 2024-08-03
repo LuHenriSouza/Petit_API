@@ -23,7 +23,6 @@ export const getSalesByFincash = async (page: number, limit: number, fincash_id:
             .orderBy(`${ETableNames.sales}.id`, 'desc')
             .offset((page - 1) * limit)
             .limit(limit);
-        console.log(result);
         return result;
         // const sales = await Knex(ETableNames.sales)
         //     .select('id as sale_id', 'created_at', 'obs')

@@ -27,8 +27,6 @@ export const getById = async (req: Request<IParamProps>, res: Response) => {
     }
     const result = await SaleDetailProvider.getById(req.params.id);
     if (result instanceof Error) {
-        console.log('inner controller: ');
-        console.log(result);
         return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
             errors: {
                 default: result.message

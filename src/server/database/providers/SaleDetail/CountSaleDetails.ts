@@ -10,7 +10,6 @@ export const countSaleDetails = async (sale_id: number): Promise<number | Error>
         if (Number.isInteger(count)) return Number(count);
         return new Error('Count Failed');
     } catch (e) {
-        console.log('COUNTSALEDETAIL: ');
         console.log(e);
         return new Error('Count Failed');
     }
