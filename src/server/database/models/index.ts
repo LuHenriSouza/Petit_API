@@ -6,6 +6,7 @@ export * from './Product';
 export * from './Fincash';
 export * from './Validity';
 export * from './Supplier';
+export * from './ProdOutput';
 export * from './SaleDetails';
 export * from './CashOutflow';
 export * from './Product_group';

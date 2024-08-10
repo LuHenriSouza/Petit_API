@@ -28,6 +28,7 @@ router.get('/product', ensureAuthenticated, ProductController.getAllValidation, 
 router.post('/product', ensureAuthenticated, ProductController.createValidation, ProductController.create);
 router.get('/product/:id', ensureAuthenticated, ProductController.getByIdValidation, ProductController.getById);
 router.get('/product/code/:code', ensureAuthenticated, ProductController.getByCode, ProductController.getByCode);
+router.post('/product/output', ensureAuthenticated, ProductController.outputValidation, ProductController.output);
 router.put('/product/:id', ensureAuthenticated, ProductController.updateByIdValidation, ProductController.updateById);
 router.delete('/product/:id', ensureAuthenticated, ProductController.deleteByIdValidation, ProductController.deleteById);
 

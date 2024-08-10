@@ -7,6 +7,7 @@ import {
     IFincash,
     ISupplier,
     IValidity,
+    IProdOutput,
     ICashOutflow,
     ISaleDetails,
     IProduct_group,
@@ -14,16 +15,17 @@ import {
 
 declare module 'knex/types/tables' {
     interface Tables {
-        products: IProduct;
-        sales: ISale;
-        saleDetails: ISaleDetails;
-        fincashs: IFincash;
-        cashOutflows: ICashOutflow;
-        stocks: IStock;
-        groups: IGroup;
-        product_groups: IProduct_group;
         users: IUser;
+        sales: ISale;
+        groups: IGroup;
+        stocks: IStock;
+        products: IProduct;
+        fincashs: IFincash;
         suppliers: ISupplier;
-        validitier: IValidity;
+        validities: IValidity;
+        prod_output: IProdOutput;
+        sale_details: ISaleDetails;
+        cash_outflows: ICashOutflow;
+        product_groups: IProduct_group;
     }
 }
