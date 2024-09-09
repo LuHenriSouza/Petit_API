@@ -10,7 +10,8 @@ interface IBodyProps extends Omit<IProdOutput, 'id' | 'created_at' | 'updated_at
 export enum EProdOutReason {
     Vencimento = 'vencimento',
     Consumo = 'consumo',
-    Improprio = 'improprio'
+    Improprio = 'improprio',
+    Outro = 'outro'
 }
 
 const bodyValidation: yup.Schema<IBodyProps> = yup.object().shape({
