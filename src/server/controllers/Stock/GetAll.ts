@@ -29,7 +29,7 @@ export const getAllValidation = validation({
 
 export const getAll: RequestHandler = async (req: Request<{}, {}, {}, IQueryProps>, res: Response) => {
     const result = await StockProvider.getAll(req.query.page || DEFAULT_PAGE, req.query.limit || DEFAULT_LIMIT, req.query.filter || DEFAULT_FILTER);
-    const count = await StockProvider.count();
+    const count = await StockProvider.count(req.query.filter || DEFAULT_FILTER);
 
     if (result instanceof Error) {
         return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
