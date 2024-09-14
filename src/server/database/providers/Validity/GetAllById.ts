@@ -3,7 +3,6 @@ import { Knex } from '../../knex';
 import { IProduct } from '../../models';
 
 interface IProductWithValidity extends IProduct {
-    quantity: number,
     validity: Date,
     created_at: Date,
     updated_at: Date,
@@ -14,8 +13,8 @@ export const getAllById = async (page: number, limit: number, prod_id: number): 
         const product = await Knex(ETableNames.products).select('*').where('id', prod_id).andWhere('deleted_at', null).first();
         if (product) {
             const result = await Knex(ETableNames.products)
-                .select('*')
                 .join(ETableNames.validities, `${ETableNames.products}.id`, '=', `${ETableNames.validities}.prod_id`)
+                .select('*')
                 .where(`${ETableNames.products}.id`, prod_id)
                 .andWhere(`${ETableNames.products}.deleted_at`, null)
                 .offset((page - 1) * limit)
