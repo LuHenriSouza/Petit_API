@@ -7,7 +7,7 @@ export const output = async (prod_output: Omit<IProdOutput, 'id' | 'created_at' 
     try {
 
         const Stock = await Knex(ETableNames.stocks).select('*').where('prod_id', prod_output.prod_id).first();
-        if (!Stock || Stock.stock <= 0) return Error('Stock not Found or <= 0');
+        if (!Stock) return Error('Stock not Found');
 
         const result = await Knex(ETableNames.prod_output).insert(prod_output);
         if (!result) return Error('Insert Error');
