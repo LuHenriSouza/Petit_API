@@ -5,6 +5,7 @@ import {
     IStock,
     IProduct,
     IFincash,
+    IPayment,
     ISupplier,
     IValidity,
     IProdOutput,
@@ -21,6 +22,7 @@ declare module 'knex/types/tables' {
         stocks: IStock;
         products: IProduct;
         fincashs: IFincash;
+        payments: IPayment;
         suppliers: ISupplier;
         validities: IValidity;
         prod_output: IProdOutput;

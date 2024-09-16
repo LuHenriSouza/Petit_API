@@ -11,6 +11,7 @@ import { Router } from 'express';
 import { StockController } from '../controllers/Stock';
 import { ProdGroupController } from '../controllers/ProductGroup';
 import { ensureAuthenticated, ensureAdmin } from '../shared/middleware';
+import { PaymentController } from '../controllers/Payment';
 
 const router = Router();
 
@@ -116,6 +117,13 @@ router.post('/validity', ensureAuthenticated, ValidityController.createValidatio
 router.get('/validity/all', ensureAuthenticated, ValidityController.getAllValidation, ValidityController.getAll);
 router.get('/validity/:id', ensureAuthenticated, ValidityController.getAllByIdValidation, ValidityController.getAllById);
 router.delete('/validity/:id', ensureAuthenticated, ValidityController.deleteByIdValidation, ValidityController.deleteById);
+
+
+
+// PAYMENTS
+router.get('/payment', PaymentController.getAllValidation, PaymentController.getAll);
+router.post('/payment', PaymentController.createValidation, PaymentController.create);
+router.delete('/payment/:id', PaymentController.deleteByIdValidation, PaymentController.deleteById);
 
 
 

@@ -2,6 +2,7 @@ export * from './User';
 export * from './Sale';
 export * from './Stock';
 export * from './Group';
+export * from './Payment';
 export * from './Product';
 export * from './Fincash';
 export * from './Validity';
