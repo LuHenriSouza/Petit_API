@@ -6,9 +6,9 @@ import { Knex } from '../../knex';
 
 export const createSuperUser = async (): Promise<number | Error> => {
 
-    const NAME = 'root';
-    const EMAIL = 'root@root';
-    const PASSWORD = '20032002l';
+    const NAME = 'admin';
+    const EMAIL = 'admin';
+    const PASSWORD = 'admin';
     const ROLE = EUserRole.Admin;
 
 
