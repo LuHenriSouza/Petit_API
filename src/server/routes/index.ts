@@ -11,6 +11,7 @@ import { Router } from 'express';
 import { StockController } from '../controllers/Stock';
 import { ProdGroupController } from '../controllers/ProductGroup';
 import { ensureAuthenticated, ensureAdmin } from '../shared/middleware';
+import { PaymentController } from '../controllers/Payment';
 
 const router = Router();
 
@@ -22,23 +23,28 @@ router.get('/superuser', UserController.createSuperUser);
 
 
 // PRODUCT
+router.get('/product/per-sector', ensureAuthenticated, ProductController.getSectorQuantity);
+router.get('/product/per-value', ensureAuthenticated, ensureAdmin, ProductController.getSectorValue);
 router.get('/product', ensureAuthenticated, ProductController.getAllValidation, ProductController.getAll);
 router.post('/product', ensureAuthenticated, ProductController.createValidation, ProductController.create);
 router.get('/product/:id', ensureAuthenticated, ProductController.getByIdValidation, ProductController.getById);
 router.get('/product/code/:code', ensureAuthenticated, ProductController.getByCode, ProductController.getByCode);
+router.post('/product/output', ensureAuthenticated, ProductController.outputValidation, ProductController.output);
 router.put('/product/:id', ensureAuthenticated, ProductController.updateByIdValidation, ProductController.updateById);
 router.delete('/product/:id', ensureAuthenticated, ProductController.deleteByIdValidation, ProductController.deleteById);
+router.get('/product-output/getall', ensureAuthenticated, ProductController.getOutputsValidation, ProductController.getOutputs);
 
 
 
 // FINCASH
 router.get('/fincash/last', ensureAuthenticated, FincashController.getLastFincash);
 router.get('/fincash/verify', ensureAuthenticated, FincashController.getByFinished);
+router.get('/data/month/current', ensureAuthenticated, ensureAdmin, FincashController.getCurrentMonth);
 router.get('/fincash', ensureAuthenticated, FincashController.getAllValidation, FincashController.getAll);
 router.post('/fincash', ensureAuthenticated, FincashController.createValidation, FincashController.create);
 router.get('/fincash/:id', ensureAuthenticated, FincashController.getByIdValidation, FincashController.getById);
 router.put('/fincash/finish/:id', ensureAuthenticated, FincashController.updateByIdValidation, FincashController.finish);
-router.put('/fincash/obs/:id', ensureAuthenticated,ensureAdmin, FincashController.updateObsValidation, FincashController.updateObs);
+router.put('/fincash/obs/:id', ensureAuthenticated, ensureAdmin, FincashController.updateObsValidation, FincashController.updateObs);
 router.delete('/fincash/:id', ensureAuthenticated, ensureAdmin, FincashController.deleteByIdValidation, FincashController.deleteById);
 router.post('/fincash/addcard/:id', ensureAuthenticated, ensureAdmin, FincashController.calcBreakValidation, FincashController.calcBreak);
 router.post('/fincash/data/:id', ensureAuthenticated, ensureAdmin, FincashController.getDataByIdValidation, FincashController.getDataById);
@@ -111,6 +117,13 @@ router.post('/validity', ensureAuthenticated, ValidityController.createValidatio
 router.get('/validity/all', ensureAuthenticated, ValidityController.getAllValidation, ValidityController.getAll);
 router.get('/validity/:id', ensureAuthenticated, ValidityController.getAllByIdValidation, ValidityController.getAllById);
 router.delete('/validity/:id', ensureAuthenticated, ValidityController.deleteByIdValidation, ValidityController.deleteById);
+
+
+
+// PAYMENTS
+router.get('/payment', PaymentController.getAllValidation, PaymentController.getAll);
+router.post('/payment', PaymentController.createValidation, PaymentController.create);
+router.delete('/payment/:id', PaymentController.deleteByIdValidation, PaymentController.deleteById);
 
 
 

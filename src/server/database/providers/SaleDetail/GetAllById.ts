@@ -21,7 +21,7 @@ export const getAllById = async (page: number, limit: number, sale_id: number): 
                 .where('sale_id', sale_id)
                 .andWhere('deleted_at', null)
                 .sum('pricetotal as totalValue')
-                .first();
+                .first<{ totalValue: number }>();
 
             const totalValue = countResult ? countResult.totalValue || 0 : 0;
 

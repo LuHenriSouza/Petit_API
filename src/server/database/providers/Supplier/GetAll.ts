@@ -1,8 +1,8 @@
 import { ETableNames } from '../../ETableNames';
 import { Knex } from '../../knex';
-import { IProduct } from '../../models';
+import { ISupplier } from '../../models';
 
-export const getAll = async (page: number, limit: number, filter: string): Promise<IProduct[] | Error> => {
+export const getAll = async (page: number, limit: number, filter: string): Promise<ISupplier[] | Error> => {
     try {
         const result = await Knex(ETableNames.suppliers)
             .select('*')

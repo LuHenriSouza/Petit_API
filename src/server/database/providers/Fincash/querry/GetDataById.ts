@@ -26,7 +26,8 @@ export enum EColumnsOrderBy {
 export interface OrderByObj {
     column: EColumnsOrderBy;
     order: 'asc' | 'desc';
-    sectors: number[]
+    sectors: number[];
+    group_id?: number;
 }
 
 export const getDataById = async (id: number, orderBy: OrderByObj, page: number, limit: number, filter = ''): Promise<IResponse[] | Error> => {
@@ -34,6 +35,7 @@ export const getDataById = async (id: number, orderBy: OrderByObj, page: number,
         const result = await Knex(ETableNames.sales)
             .join(ETableNames.saleDetails, `${ETableNames.sales}.id`, `${ETableNames.saleDetails}.sale_id`)
             .join(ETableNames.products, `${ETableNames.products}.id`, `${ETableNames.saleDetails}.prod_id`)
+            .leftJoin(ETableNames.product_groups, `${ETableNames.products}.id`, `${ETableNames.product_groups}.prod_id`)
             .select(
                 `${ETableNames.products}.id as prod_id`,
                 `${ETableNames.products}.code as prod_code`,
@@ -47,6 +49,11 @@ export const getDataById = async (id: number, orderBy: OrderByObj, page: number,
             )
             .where(`${ETableNames.sales}.fincash_id`, id)
             .andWhere(`${ETableNames.products}.name`, 'ilike', `%${filter}%`)
+            .andWhere(function () {
+                if (orderBy.group_id) {
+                    this.where(`${ETableNames.product_groups}.group_id`, orderBy.group_id);
+                }
+            })
             .whereIn(`${ETableNames.products}.sector`, orderBy.sectors)
             .groupBy(`${ETableNames.products}.id`, `${ETableNames.saleDetails}.price`)
             .orderBy(orderBy.column, orderBy.order)

@@ -10,4 +10,6 @@ export enum ETableNames {
     validities = 'validities',
     users = 'users',
     suppliers = 'suppliers',
+    prod_output = 'prod_output',
+    payments = 'payments',
 }

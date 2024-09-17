@@ -7,7 +7,7 @@ interface IProductWithStock extends IProduct {
     stock: number;
 }
 
-export const getAll = async (page: number, limit: number, filter: string): Promise<IProductWithStock[] | Error> => {
+export const getAll = async (page: number, limit: number, filter: string, orderBy = 'updated_at'): Promise<IProductWithStock[] | Error> => {
     try {
         const result = await Knex(ETableNames.products)
             .select('*')
@@ -21,7 +21,7 @@ export const getAll = async (page: number, limit: number, filter: string): Promi
             })
             .offset((page - 1) * limit)
             .limit(limit)
-            .orderBy(`${ETableNames.stocks}.updated_at`, 'desc');
+            .orderBy(`${ETableNames.stocks}.${orderBy}`, 'desc');
 
         return result;
 

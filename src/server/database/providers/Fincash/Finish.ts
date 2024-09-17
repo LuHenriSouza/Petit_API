@@ -39,7 +39,7 @@ export const finish = async (id: number, fincash: TFincashParam): Promise<void |
 
 
 const getTotalValue = async (fincash_id: number) => {
-    const response = await Knex(ETableNames.sales)
+    const response: { sum: number }[] = await Knex(ETableNames.sales)
         .join(ETableNames.saleDetails, `${ETableNames.sales}.id`, `${ETableNames.saleDetails}.sale_id`)
         .where(`${ETableNames.sales}.fincash_id`, fincash_id)
         .sum(`${ETableNames.saleDetails}.pricetotal`);

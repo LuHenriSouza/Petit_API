@@ -1,6 +1,6 @@
 import { ETableNames } from '../../ETableNames';
 import { Knex } from '../../knex';
-import { ISaleDetails } from '../../models';
+import { ISaleDetails, IStock } from '../../models';
 
 
 export const create = async (saleDetails: Omit<ISaleDetails, 'id' | 'created_at' | 'updated_at' | 'pricetotal' | 'sale_id'>[], obs?: string | null): Promise<number | Error> => {
@@ -17,7 +17,7 @@ export const create = async (saleDetails: Omit<ISaleDetails, 'id' | 'created_at'
 
             if (productsExist.length === productIds.length) {
 
-                const sale = await Knex(ETableNames.sales).insert({ fincash_id: fincash.id, obs: obs }).returning('id');
+                const sale = await Knex(ETableNames.sales).insert({ fincash_id: fincash.id, obs: obs as string }).returning('id');
                 if (sale) {
 
                     const resultPromises = saleDetails.flat().map(async (element) => {
@@ -25,10 +25,10 @@ export const create = async (saleDetails: Omit<ISaleDetails, 'id' | 'created_at'
                             .insert({ ...element, sale_id: sale[0].id, pricetotal: (element.price * element.quantity) })
                             .returning('id');
 
-                        let Stock = await Knex(ETableNames.stocks).select('*').where('prod_id', element.prod_id).first();
+                        let Stock = await Knex<Omit<IStock, 'created_at' | 'id' | 'updated_at'>>(ETableNames.stocks).select('*').where('prod_id', element.prod_id).first();
                         if (!Stock) {
                             Stock = { prod_id: element.prod_id, stock: 0 };
-                            await Knex(ETableNames.stocks).insert(Stock);
+                            await Knex(ETableNames.stocks).insert(Stock as IStock);
                         }
                         await Knex(ETableNames.stocks).update({ stock: (Stock.stock - element.quantity), updated_at: Knex.fn.now() }).where('prod_id', element.prod_id);
 

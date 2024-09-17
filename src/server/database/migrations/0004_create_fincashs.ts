@@ -11,6 +11,8 @@ export async function up(knex: Knex): Promise<void> {
         table.decimal('finalValue');
         table.decimal('totalValue');
         table.decimal('cardValue');
+        table.decimal('invoicing');
+        table.decimal('profit');
         table.decimal('diferenceLastFincash');
         table.decimal('break');
         table.boolean('isFinished').defaultTo(false);

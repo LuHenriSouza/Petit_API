@@ -3,7 +3,7 @@ import { Knex } from '../../knex';
 
 export const countSales = async (): Promise<number | Error> => {
     try {
-        const countQuery = await Knex(ETableNames.saleDetails)
+        const countQuery: { count: number }[] = await Knex(ETableNames.saleDetails)
             .countDistinct('sale_id as count');
 
 
