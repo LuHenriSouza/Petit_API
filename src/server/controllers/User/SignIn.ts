@@ -9,8 +9,8 @@ import { JWTService, PasswordCrypto } from '../../shared/services';
 interface IBodyProps extends Omit<IUser, 'id' | 'name' | 'role'> { }
 
 const bodyValidation: yup.Schema<IBodyProps> = yup.object().shape({
-    email: yup.string().required().email().min(5).max(50),
-    password: yup.string().required().min(6),
+    email: yup.string().required().min(0).max(50),
+    password: yup.string().required().min(0),
 
 });
 
