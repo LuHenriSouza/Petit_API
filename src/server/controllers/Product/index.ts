@@ -6,8 +6,11 @@ import * as getByCode from './GetByCode';
 import * as updateById from './UpdateById';
 import * as deleteById from './DeleteById';
 import * as getOutputs from './getOutputs';
+import * as getOutputById from './GetOutputById';
 import * as getSectorValue from './query/GetSectorValue';
+import * as getSectorStock from './query/GetSectorStock';
 import * as getSectorQuantity from './query/GetSectorQuantity';
+import * as getSectorStockValue from './query/GetSectorStockValue';
 
 export const ProductController = {
     ...create,
@@ -18,6 +21,9 @@ export const ProductController = {
     ...updateById,
     ...deleteById,
     ...getOutputs,
+    ...getOutputById,
     ...getSectorValue,
+    ...getSectorStock,
     ...getSectorQuantity,
+    ...getSectorStockValue,
 };

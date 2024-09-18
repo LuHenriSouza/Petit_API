@@ -23,7 +23,9 @@ router.get('/superuser', UserController.createSuperUser);
 
 
 // PRODUCT
+router.get('/product/per-stock', ensureAuthenticated, ProductController.getSectorStock);
 router.get('/product/per-sector', ensureAuthenticated, ProductController.getSectorQuantity);
+router.get('/product/per-stock-value', ensureAuthenticated, ProductController.getSectorStockValue);
 router.get('/product/per-value', ensureAuthenticated, ensureAdmin, ProductController.getSectorValue);
 router.get('/product', ensureAuthenticated, ProductController.getAllValidation, ProductController.getAll);
 router.post('/product', ensureAuthenticated, ProductController.createValidation, ProductController.create);
@@ -33,6 +35,7 @@ router.post('/product/output', ensureAuthenticated, ProductController.outputVali
 router.put('/product/:id', ensureAuthenticated, ProductController.updateByIdValidation, ProductController.updateById);
 router.delete('/product/:id', ensureAuthenticated, ProductController.deleteByIdValidation, ProductController.deleteById);
 router.get('/product-output/getall', ensureAuthenticated, ProductController.getOutputsValidation, ProductController.getOutputs);
+router.get('/product-output/:id', ensureAuthenticated, ProductController.getOutputByIdValidation, ProductController.getOutputById);
 
 
 
@@ -122,6 +125,7 @@ router.delete('/validity/:id', ensureAuthenticated, ValidityController.deleteByI
 
 // PAYMENTS
 router.get('/payment', PaymentController.getAllValidation, PaymentController.getAll);
+router.get('/payment/:id', PaymentController.getByIdValidation, PaymentController.getById);
 router.post('/payment', PaymentController.createValidation, PaymentController.create);
 router.delete('/payment/:id', PaymentController.deleteByIdValidation, PaymentController.deleteById);
 

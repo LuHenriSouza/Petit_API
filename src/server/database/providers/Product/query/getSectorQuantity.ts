@@ -12,7 +12,7 @@ export const getSectorQuantity = async (sectors = [1, 2, 3, 4]): Promise<IRespon
             .select('sector', Knex.raw('count(*) as quantity'))
             .whereIn('sector', sectors)
             .groupBy('sector')
-            .orderBy('quantity', 'desc');
+            .orderBy('sector');
 
         return result;
     } catch (error) {

@@ -8,8 +8,11 @@ import * as getOutput from './GetOutputs';
 import * as updateById from './UpdateById';
 import * as deleteById from './DeleteById';
 import * as outputCount from './outputCount';
+import * as getOutputById from './GetOutputsById';
+import * as getSectorStock from './query/getSectorStock';
 import * as getSectorValue from './query/getSectorValue';
 import * as getSectorQuantity from './query/getSectorQuantity';
+import * as getSectorStockValue from './query/getSectorStockValue';
 
 export const ProductProvider = {
     ...count,
@@ -22,6 +25,9 @@ export const ProductProvider = {
     ...updateById,
     ...deleteById,
     ...outputCount,
+    ...getOutputById,
+    ...getSectorStock,
     ...getSectorValue,
     ...getSectorQuantity,
+    ...getSectorStockValue,
 };
