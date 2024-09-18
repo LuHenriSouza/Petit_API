@@ -33,6 +33,7 @@ router.post('/product/output', ensureAuthenticated, ProductController.outputVali
 router.put('/product/:id', ensureAuthenticated, ProductController.updateByIdValidation, ProductController.updateById);
 router.delete('/product/:id', ensureAuthenticated, ProductController.deleteByIdValidation, ProductController.deleteById);
 router.get('/product-output/getall', ensureAuthenticated, ProductController.getOutputsValidation, ProductController.getOutputs);
+router.get('/product-output/:id', ensureAuthenticated, ProductController.getOutputByIdValidation, ProductController.getOutputById);
 
 
 
