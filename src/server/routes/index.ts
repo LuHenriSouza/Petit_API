@@ -23,6 +23,7 @@ router.get('/superuser', UserController.createSuperUser);
 
 
 // PRODUCT
+router.get('/product/per-stock', ensureAuthenticated, ProductController.getSectorStock);
 router.get('/product/per-sector', ensureAuthenticated, ProductController.getSectorQuantity);
 router.get('/product/per-value', ensureAuthenticated, ensureAdmin, ProductController.getSectorValue);
 router.get('/product', ensureAuthenticated, ProductController.getAllValidation, ProductController.getAll);
