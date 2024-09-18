@@ -10,6 +10,7 @@ import * as getOutputById from './GetOutputById';
 import * as getSectorValue from './query/GetSectorValue';
 import * as getSectorStock from './query/GetSectorStock';
 import * as getSectorQuantity from './query/GetSectorQuantity';
+import * as getSectorStockValue from './query/GetSectorStockValue';
 
 export const ProductController = {
     ...create,
@@ -24,4 +25,5 @@ export const ProductController = {
     ...getSectorValue,
     ...getSectorStock,
     ...getSectorQuantity,
+    ...getSectorStockValue,
 };

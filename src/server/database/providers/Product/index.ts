@@ -12,6 +12,7 @@ import * as getOutputById from './GetOutputsById';
 import * as getSectorStock from './query/getSectorStock';
 import * as getSectorValue from './query/getSectorValue';
 import * as getSectorQuantity from './query/getSectorQuantity';
+import * as getSectorStockValue from './query/getSectorStockValue';
 
 export const ProductProvider = {
     ...count,
@@ -28,4 +29,5 @@ export const ProductProvider = {
     ...getSectorStock,
     ...getSectorValue,
     ...getSectorQuantity,
+    ...getSectorStockValue,
 };
