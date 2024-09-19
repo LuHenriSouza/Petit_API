@@ -80,6 +80,7 @@ router.get('/sale/complete/:id', ensureAuthenticated, ensureAdmin, SaleDetailCon
 
 
 // USER
+router.get('/role/get', UserController.getRole);
 router.post('/login', UserController.signInValidation, UserController.signIn);
 router.post('/register', ensureAuthenticated, ensureAdmin, UserController.createValidation, UserController.signUp);
 
