@@ -4,13 +4,12 @@ import * as yup from 'yup';
 
 import { StockProvider } from '../../database/providers/Stock';
 import { validation } from '../../shared/middleware';
-import { IStock } from '../../database/models';
 
 interface IParamProps {
     id?: number,
 }
 
-interface IBodyProps extends Omit<IStock, 'id' | 'created_at' | 'updated_at' | 'code' | 'prod_id'> { }
+interface IBodyProps { stock: number }
 
 const paramsValidation: yup.Schema<IParamProps> = yup.object().shape({
     id: yup.number().integer().required().moreThan(0),
@@ -33,7 +32,7 @@ export const updateById = async (req: Request<IParamProps, {}, IBodyProps>, res:
             }
         });
     }
-    const result = await StockProvider.updateById(req.params.id, req.body);
+    const result = await StockProvider.updateById(req.params.id, req.body.stock);
     if (result instanceof Error) {
         return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
             errors: {
