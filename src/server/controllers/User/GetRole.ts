@@ -27,7 +27,7 @@ export const getRole: RequestHandler = async (req, res) => {
         });
     } else if (jwtData === 'INVALID_TOKEN') {
         return res.status(StatusCodes.UNAUTHORIZED).json({
-            errors: { default: 'Não autenticado' }
+            errors: { default: 'INVALID TOKEN' }
         });
     }
 
