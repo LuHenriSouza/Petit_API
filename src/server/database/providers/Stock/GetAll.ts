@@ -5,6 +5,7 @@ import { IProduct } from '../../models';
 
 interface IProductWithStock extends IProduct {
     stock: number;
+    prod_id: number;
 }
 
 export const getAll = async (page: number, limit: number, filter: string, orderBy = 'updated_at'): Promise<IProductWithStock[] | Error> => {
