@@ -1,9 +1,8 @@
 import { RequestHandler } from 'express';
 import { StatusCodes } from 'http-status-codes';
-import { JWTService } from '../services';
+import { JWTService } from '../../shared/services';
 
-
-export const ensureAuthenticated: RequestHandler = async (req, res, next) => {
+export const getRole: RequestHandler = async (req, res) => {
     const { authorization } = req.headers;
 
     if (!authorization) {
@@ -33,5 +32,6 @@ export const ensureAuthenticated: RequestHandler = async (req, res, next) => {
     }
 
     req.headers.idUser = jwtData.uid.toString();
-    return next();
+
+    return res.status(StatusCodes.OK).json({ role: jwtData.role });
 };

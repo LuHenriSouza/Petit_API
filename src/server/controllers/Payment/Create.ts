@@ -20,7 +20,7 @@ export const createValidation = validation({
 
 export const create: RequestHandler = async (req: Request<{}, {}, IBodyProps>, res: Response) => {
     const code = req.body.code;
-    const baseDate = '1997-10-07';
+    const baseDate = '1997-10-08';
     const days = Number(code.substring(33, 37));
 
     const expiration = addDays(baseDate, days);

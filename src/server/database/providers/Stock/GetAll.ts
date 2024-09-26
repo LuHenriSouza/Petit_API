@@ -5,6 +5,7 @@ import { IProduct } from '../../models';
 
 interface IProductWithStock extends IProduct {
     stock: number;
+    prod_id: number;
 }
 
 export const getAll = async (page: number, limit: number, filter: string, orderBy = 'updated_at'): Promise<IProductWithStock[] | Error> => {
@@ -13,10 +14,12 @@ export const getAll = async (page: number, limit: number, filter: string, orderB
             .select('*')
             .join(ETableNames.stocks, `${ETableNames.products}.id`, '=', `${ETableNames.stocks}.prod_id`)
             .where(`${ETableNames.products}.deleted_at`, null)
-            .andWhere(`${ETableNames.stocks}.stock`, '<>', 0)
             .andWhere((builder) => {
                 if (filter) {
-                    builder.where(`${ETableNames.products}.name`, 'ilike', `%${filter}%`).orWhere(`${ETableNames.products}.code`, 'ilike', `%${filter}%`);
+                    builder.where(function () {
+                        this.where(`${ETableNames.products}.name`, 'ilike', `%${filter}%`)
+                            .orWhere(`${ETableNames.products}.code`, 'ilike', `%${filter}%`);
+                    });
                 }
             })
             .offset((page - 1) * limit)

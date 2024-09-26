@@ -6,10 +6,12 @@ export const count = async (filter: string): Promise<number | Error> => {
         const [{ count }] = await Knex(ETableNames.products)
             .join(ETableNames.stocks, `${ETableNames.products}.id`, '=', `${ETableNames.stocks}.prod_id`)
             .where(`${ETableNames.products}.deleted_at`, null)
-            .andWhere(`${ETableNames.stocks}.stock`, '<>', 0)
             .andWhere((builder) => {
                 if (filter) {
-                    builder.where(`${ETableNames.products}.name`, 'ilike', `%${filter}%`).orWhere(`${ETableNames.products}.code`, 'ilike', `%${filter}%`);
+                    builder.where(function () {
+                        this.where(`${ETableNames.products}.name`, 'ilike', `%${filter}%`)
+                            .orWhere(`${ETableNames.products}.code`, 'ilike', `%${filter}%`);
+                    });
                 }
             })
             .count<[{ count: number }]>('* as count');
