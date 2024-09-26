@@ -6,8 +6,8 @@ import { server } from './server/server'; // Certifique-se de que este export es
 const startServer = () => {
     // Carregar certificados
     const options = {
-        key: fs.readFileSync('C:\\Users\\user\\Documents\\GitHub\\nginx-1.26.1\\ssl\\private.key'),
-        cert: fs.readFileSync('C:\\Users\\user\\Documents\\GitHub\\nginx-1.26.1\\ssl\\certificate.crt'),
+        key: fs.readFileSync('C:\\Users\\user\\Documents\\GitHub\\nginx-1.26.2\\ssl\\private.key'),
+        cert: fs.readFileSync('C:\\Users\\user\\Documents\\GitHub\\nginx-1.26.2\\ssl\\certificate.crt'),
     };
 
     // Configurar o servidor HTTPS

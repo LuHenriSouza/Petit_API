@@ -7,8 +7,11 @@ import { router } from './routes';
 const server = express();
 
 server.use(cors({
-    origin: process.env.ENABLED_CORS?.split(';') || []
+    origin: process.env.ENABLED_CORS && process.env.ENABLED_CORS.trim() !== ''
+        ? process.env.ENABLED_CORS.split(';')
+        : '*'
 }));
+
 server.use(express.json());
 
 server.use(router);
