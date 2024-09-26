@@ -11,6 +11,7 @@ import { Router } from 'express';
 import { StockController } from '../controllers/Stock';
 import { ProdGroupController } from '../controllers/ProductGroup';
 import { ensureAuthenticated, ensureAdmin } from '../shared/middleware';
+import { PaymentController } from '../controllers/Payment';
 
 const router = Router();
 
@@ -22,14 +23,19 @@ router.get('/superuser', UserController.createSuperUser);
 
 
 // PRODUCT
+router.get('/product/per-stock', ensureAuthenticated, ProductController.getSectorStock);
 router.get('/product/per-sector', ensureAuthenticated, ProductController.getSectorQuantity);
+router.get('/product/per-stock-value', ensureAuthenticated, ProductController.getSectorStockValue);
 router.get('/product/per-value', ensureAuthenticated, ensureAdmin, ProductController.getSectorValue);
 router.get('/product', ensureAuthenticated, ProductController.getAllValidation, ProductController.getAll);
 router.post('/product', ensureAuthenticated, ProductController.createValidation, ProductController.create);
 router.get('/product/:id', ensureAuthenticated, ProductController.getByIdValidation, ProductController.getById);
 router.get('/product/code/:code', ensureAuthenticated, ProductController.getByCode, ProductController.getByCode);
+router.post('/product/output', ensureAuthenticated, ProductController.outputValidation, ProductController.output);
 router.put('/product/:id', ensureAuthenticated, ProductController.updateByIdValidation, ProductController.updateById);
 router.delete('/product/:id', ensureAuthenticated, ProductController.deleteByIdValidation, ProductController.deleteById);
+router.get('/product-output/getall', ensureAuthenticated, ProductController.getOutputsValidation, ProductController.getOutputs);
+router.get('/product-output/:id', ensureAuthenticated, ProductController.getOutputByIdValidation, ProductController.getOutputById);
 
 
 
@@ -74,6 +80,7 @@ router.get('/sale/complete/:id', ensureAuthenticated, ensureAdmin, SaleDetailCon
 
 
 // USER
+router.get('/role/get', UserController.getRole);
 router.post('/login', UserController.signInValidation, UserController.signIn);
 router.post('/register', ensureAuthenticated, ensureAdmin, UserController.createValidation, UserController.signUp);
 
@@ -94,9 +101,9 @@ router.post('/group/product/remove/:id', ensureAuthenticated, ProdGroupControlle
 // STOCK
 router.get('/stock', ensureAuthenticated, StockController.getAllValidation, StockController.getAll);
 router.post('/stock', ensureAuthenticated, StockController.createValidation, StockController.create);
-router.get('/stock/:id', ensureAuthenticated, StockController.getAllByIdValidation, StockController.getAllById);
+// router.get('/stock/:id', ensureAuthenticated, StockController.getAllByIdValidation, StockController.getAllById);
 router.put('/stock/:id', ensureAuthenticated, ensureAdmin, StockController.updateByIdValidation, StockController.updateById);
-router.delete('/stock/:id', ensureAuthenticated, ensureAdmin, StockController.deleteByIdValidation, StockController.deleteById);
+// router.delete('/stock/:id', ensureAuthenticated, ensureAdmin, StockController.deleteByIdValidation, StockController.deleteById);
 
 
 
@@ -114,6 +121,14 @@ router.post('/validity', ensureAuthenticated, ValidityController.createValidatio
 router.get('/validity/all', ensureAuthenticated, ValidityController.getAllValidation, ValidityController.getAll);
 router.get('/validity/:id', ensureAuthenticated, ValidityController.getAllByIdValidation, ValidityController.getAllById);
 router.delete('/validity/:id', ensureAuthenticated, ValidityController.deleteByIdValidation, ValidityController.deleteById);
+
+
+
+// PAYMENTS
+router.get('/payment', PaymentController.getAllValidation, PaymentController.getAll);
+router.get('/payment/:id', PaymentController.getByIdValidation, PaymentController.getById);
+router.post('/payment', PaymentController.createValidation, PaymentController.create);
+router.delete('/payment/:id', PaymentController.deleteByIdValidation, PaymentController.deleteById);
 
 
 

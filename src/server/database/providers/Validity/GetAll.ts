@@ -4,7 +4,6 @@ import { IProduct } from '../../models';
 
 
 interface IProductWithValidity extends IProduct {
-    quantity: number,
     validity: Date,
     created_at: Date,
     updated_at: Date,
@@ -13,8 +12,8 @@ interface IProductWithValidity extends IProduct {
 export const getAll = async (page: number, limit: number): Promise<IProductWithValidity[] | Error> => {
     try {
         const result = await Knex(ETableNames.products)
-            .select('*')
             .join(ETableNames.validities, `${ETableNames.products}.id`, '=', `${ETableNames.validities}.prod_id`)
+            .select('*')
             .where(`${ETableNames.products}.deleted_at`, null)
             .offset((page - 1) * limit)
             .limit(limit)

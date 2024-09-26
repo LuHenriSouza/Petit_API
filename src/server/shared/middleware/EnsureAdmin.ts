@@ -29,7 +29,7 @@ export const ensureAdmin: RequestHandler = async (req, res, next) => {
         });
     } else if (jwtData === 'INVALID_TOKEN') {
         return res.status(StatusCodes.UNAUTHORIZED).json({
-            errors: { default: 'Não autenticado' }
+            errors: { default: 'INVALID TOKEN' }
         });
     }
 
@@ -37,8 +37,6 @@ export const ensureAdmin: RequestHandler = async (req, res, next) => {
     req.headers.userRole = jwtData.role.toString();
 
     const userRole: EUserRole = jwtData.role;
-    console.log('UID: ' + jwtData.uid);
-    console.log('ROLE: ' + userRole);
     if (userRole !== EUserRole.Admin) {
         return res.status(StatusCodes.FORBIDDEN).json({
             errors: { default: 'Acesso não permitido' }

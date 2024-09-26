@@ -16,7 +16,7 @@ export const getSectorValue = async (sectors = [1, 2, 3, 4]): Promise<IResponse[
             )
             .whereIn(`${ETableNames.products}.sector`, sectors)
             .groupBy('sector')
-            .orderBy('value', 'desc');
+            .orderBy('sector');
 
         return result;
     } catch (error) {

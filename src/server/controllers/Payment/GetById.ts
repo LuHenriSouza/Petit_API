@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
 import * as yup from 'yup';
 
-import { SaleDetailProvider } from '../../database/providers/SaleDetail';
+import { PaymentProvider } from '../../database/providers/Payment';
 import { validation } from '../../shared/middleware';
 
 interface IParamProps {
@@ -25,7 +25,7 @@ export const getById = async (req: Request<IParamProps>, res: Response) => {
             }
         });
     }
-    const result = await SaleDetailProvider.getById(req.params.id);
+    const result = await PaymentProvider.getById(req.params.id);
     if (result instanceof Error) {
         return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
             errors: {
