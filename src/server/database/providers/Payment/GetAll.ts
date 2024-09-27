@@ -16,7 +16,7 @@ export const getAll = async (page: number, limit: number): Promise<IResponse[] |
             )
             .offset((page - 1) * limit)
             .limit(limit)
-            .orderBy('expiration', 'desc');
+            .orderBy('expiration', 'asc');
 
         return result;
     } catch (e) {
