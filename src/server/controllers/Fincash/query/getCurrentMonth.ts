@@ -6,7 +6,7 @@ import { endOfMonth, startOfMonth } from 'date-fns';
 
 export const getCurrentMonth = async (req: Request, res: Response) => {
 
-    const today = new Date('2024-07-03');
+    const today = new Date();
     const fday = startOfMonth(today);
     const day = endOfMonth(today);
 
