@@ -1,5 +1,5 @@
 import knex from 'knex';
-import { development, production } from './Environment';
+import { development } from './Environment';
 import pg from 'pg';
 import 'dotenv/config';
 
@@ -9,11 +9,11 @@ if (process.env.NODE_ENV) {
 }
 
 
-const getEnvironment = () => {
-    switch (process.env.NODE_ENV) {
-        case 'production': return production;
-        default: return development;
-    }
-};
+// const getEnvironment = () => {
+//     switch (process.env.NODE_ENV) {
+//         case 'production': return production;
+//         default: return development;
+//     }
+// };
 
-export const Knex = knex(getEnvironment());
+export const Knex = knex(development);
