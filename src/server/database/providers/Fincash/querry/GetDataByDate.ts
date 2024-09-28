@@ -2,28 +2,30 @@ import { Knex } from '../../../knex';
 import { ETableNames } from '../../../ETableNames';
 
 export interface IResponse {
-    id: number;
-    cardValue: number;
-    totalValue: number;
-    invoicing: number;
-    finalDate: Date;
+    day: Date;
+    first_id: number;
+    total_card_value: number;
+    total_registered_value: number;
+    total_invoicing: number;
 }
 
 export const getDataByDate = async (init: Date, end: Date): Promise<IResponse[] | Error> => {
     try {
         const result = await Knex<IResponse>(ETableNames.fincashs)
             .select(
-                'id',
-                'cardValue',
-                'totalValue',
-                'invoicing',
-                'finalDate'
+                Knex.raw('DATE(created_at) AS day'),
+                Knex.raw('MIN(id) AS first_id'),
+                Knex.raw('SUM("cardValue") AS total_card_value'),
+                Knex.raw('SUM("totalValue") AS total_registered_value'),
+                Knex.raw('SUM(invoicing) AS total_invoicing')
             )
-            .whereBetween('finalDate', [init, end])
-            .orderBy('finalDate');
+            .whereBetween('created_at', [init, end])
+            .groupBy(Knex.raw('DATE(created_at)'))
+            .orderBy('day');
 
         return result;
-    } catch (error) {
-        throw new Error(`Failed to fetch data: ${error}`);
+    } catch (e) {
+        console.error(e); // Logue o erro para depuração
+        return new Error('Get Failed');
     }
 };

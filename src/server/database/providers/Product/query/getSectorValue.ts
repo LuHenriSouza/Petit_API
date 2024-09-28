@@ -6,7 +6,7 @@ export interface IResponse {
     quantity: number;
 }
 
-export const getSectorValue = async (sectors = [1, 2, 3, 4]): Promise<IResponse[] | Error> => {
+export const getSectorValue = async (init: Date, end: Date): Promise<IResponse[] | Error> => {
     try {
         const result = await Knex(ETableNames.saleDetails)
             .join(ETableNames.products, `${ETableNames.products}.id`, `${ETableNames.saleDetails}.prod_id`)
@@ -14,7 +14,8 @@ export const getSectorValue = async (sectors = [1, 2, 3, 4]): Promise<IResponse[
                 `${ETableNames.products}.sector as sector`,
                 Knex.raw('SUM(sale_details.pricetotal) as value')
             )
-            .whereIn(`${ETableNames.products}.sector`, sectors)
+            .whereIn(`${ETableNames.products}.sector`,  [1, 2, 3, 4])
+            .whereBetween('sale_details.created_at', [init, end])
             .groupBy('sector')
             .orderBy('sector');
 
