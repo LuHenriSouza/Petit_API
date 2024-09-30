@@ -9,12 +9,14 @@ export interface IResponse {
 export const getSectorValue = async (init: Date, end: Date): Promise<IResponse[] | Error> => {
     try {
         const result = await Knex(ETableNames.saleDetails)
+            .join(ETableNames.sales, `${ETableNames.sales}.id`, `${ETableNames.saleDetails}.sale_id`)
             .join(ETableNames.products, `${ETableNames.products}.id`, `${ETableNames.saleDetails}.prod_id`)
             .select(
                 `${ETableNames.products}.sector as sector`,
                 Knex.raw('SUM(sale_details.pricetotal) as value')
             )
-            .whereIn(`${ETableNames.products}.sector`,  [1, 2, 3, 4])
+            .where(`${ETableNames.sales}.deleted_at`, null)
+            .whereIn(`${ETableNames.products}.sector`, [1, 2, 3, 4])
             .whereBetween('sale_details.created_at', [init, end])
             .groupBy('sector')
             .orderBy('sector');

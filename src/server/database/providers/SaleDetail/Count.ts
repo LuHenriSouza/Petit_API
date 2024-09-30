@@ -4,7 +4,6 @@ import { Knex } from '../../knex';
 export const count = async (): Promise<number | Error> => {
     try {
         const [{ count }] = await Knex(ETableNames.saleDetails)
-            .where('deleted_at', null)
             .count<[{ count: number }]>('* as count');
         if (Number.isInteger(Number(count))) return Number(count);
 

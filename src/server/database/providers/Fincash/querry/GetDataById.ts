@@ -48,6 +48,7 @@ export const getDataById = async (id: number, orderBy: OrderByObj, page: number,
                 Knex.raw('SUM(sale_details.pricetotal) as total_value')
             )
             .where(`${ETableNames.sales}.fincash_id`, id)
+            .andWhere(`${ETableNames.sales}.deleted_at`, null)
             .andWhere(`${ETableNames.products}.name`, 'ilike', `%${filter}%`)
             .andWhere(function () {
                 if (orderBy.group_id) {
