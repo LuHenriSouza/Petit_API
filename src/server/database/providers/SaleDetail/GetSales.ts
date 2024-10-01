@@ -7,7 +7,7 @@ interface IGetSales {
     obs: string,
     created_at: Date,
     deleted_at: Date,
-    totalValue: number,
+    total_value: number,
 }
 
 export const getSales = async (page: number, limit: number): Promise<IGetSales[] | Error> => {
@@ -16,14 +16,14 @@ export const getSales = async (page: number, limit: number): Promise<IGetSales[]
         const result = await Knex<IGetSales>(ETableNames.sales)
             .join(ETableNames.saleDetails, `${ETableNames.sales}.id`, `${ETableNames.saleDetails}.sale_id`)
             .select(
-                `${ETableNames.saleDetails}.sale_id`,
+                `${ETableNames.sales}.id as sale_id`,
                 `${ETableNames.sales}.obs`,
                 `${ETableNames.sales}.created_at`,
                 `${ETableNames.sales}.deleted_at`,
-                Knex.raw('SUM(sale_details.pricetotal) as totalValue')
+                Knex.raw('SUM(sale_details.pricetotal) as total_value')
             )
-            .groupBy(`${ETableNames.saleDetails}.sale_id`)
-            .orderBy(`${ETableNames.saleDetails}.sale_id`, 'desc')
+            .groupBy(`${ETableNames.sales}.id`)
+            .orderBy(`${ETableNames.sales}.id`, 'desc')
             .offset((page - 1) * limit)
             .limit(limit);
 
