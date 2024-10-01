@@ -17,7 +17,7 @@ export const getSectorValue = async (init: Date, end: Date): Promise<IResponse[]
             )
             .where(`${ETableNames.sales}.deleted_at`, null)
             .whereIn(`${ETableNames.products}.sector`, [1, 2, 3, 4])
-            .whereBetween('sale_details.created_at', [init, end])
+            .whereBetween(`${ETableNames.sales}.created_at`, [init, end])
             .groupBy('sector')
             .orderBy('sector');
 
