@@ -23,6 +23,7 @@ export const getSectorValue = async (init: Date, end: Date): Promise<IResponse[]
 
         return result;
     } catch (error) {
-        throw new Error(`Failed to fetch data: ${error}`);
+        console.error(error);
+        return new Error(`Failed to fetch data: ${error}`);
     }
 };

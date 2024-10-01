@@ -63,6 +63,7 @@ export const getDataById = async (id: number, orderBy: OrderByObj, page: number,
 
         return result;
     } catch (error) {
-        throw new Error(`Failed to fetch data: ${error}`);
+        console.error(error);
+        return new Error(`Failed to fetch data: ${error}`);
     }
 };
