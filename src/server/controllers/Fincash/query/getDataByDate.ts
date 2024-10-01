@@ -2,7 +2,7 @@ import * as yup from 'yup';
 import { Request, RequestHandler, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
 
-import { ProductProvider } from '../../../database/providers/Product';
+import { FincashProvider } from '../../../database/providers/Fincash';
 import { validation } from '../../../shared/middleware';
 
 interface IQueryProps {
@@ -19,8 +19,8 @@ export const getDataByDateValidation = validation({
     query: queryValidation,
 });
 
+export const getDataByDate: RequestHandler = async (req: Request<{}, {}, {}, IQueryProps>, res: Response) => {
 
-export const getSectorValue: RequestHandler = async (req: Request<{}, {}, {}, IQueryProps>, res: Response) => {
     if (!req.query.start || !req.query.end) {
         return res.status(StatusCodes.BAD_REQUEST).json({
             errors: {
@@ -28,7 +28,8 @@ export const getSectorValue: RequestHandler = async (req: Request<{}, {}, {}, IQ
             }
         });
     }
-    const result = await ProductProvider.getSectorValue(req.query.start, req.query.end);
+
+    const result = await FincashProvider.getDataByDate(req.query.start, req.query.end);
 
     if (result instanceof Error) {
         return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
