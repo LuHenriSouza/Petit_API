@@ -9,6 +9,7 @@ export const countData = async (id: number, filter = '', setors: number[], group
             .join(ETableNames.products, `${ETableNames.products}.id`, `${ETableNames.saleDetails}.prod_id`)
             .leftJoin(ETableNames.product_groups, `${ETableNames.products}.id`, `${ETableNames.product_groups}.prod_id`)
             .where(`${ETableNames.sales}.fincash_id`, id)
+            .andWhere(`${ETableNames.sales}.deleted_at`, null)
             .andWhere(`${ETableNames.products}.name`, 'ilike', `%${filter}%`)
             .andWhere(function () {
                 if (group_id) {

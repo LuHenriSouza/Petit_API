@@ -18,6 +18,7 @@ export const getSectorStock = async (sectors = [1, 2, 3, 4]): Promise<IResponse[
 
         return result;
     } catch (error) {
-        throw new Error(`Failed to fetch data: ${error}`);
+        console.error(error);
+        return new Error(`Failed to fetch data: ${error}`);
     }
 };

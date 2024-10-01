@@ -13,13 +13,12 @@ export const getAllById = async (page: number, limit: number, sale_id: number): 
         if (sale) {
             const result = await Knex(ETableNames.saleDetails)
                 .select('*')
-                .where('sale_id', sale_id).andWhere('deleted_at', null)
+                .where('sale_id', sale_id)
                 .offset((page - 1) * limit)
                 .limit(limit);
 
             const countResult = await Knex(ETableNames.saleDetails)
                 .where('sale_id', sale_id)
-                .andWhere('deleted_at', null)
                 .sum('pricetotal as totalValue')
                 .first<{ totalValue: number }>();
 
