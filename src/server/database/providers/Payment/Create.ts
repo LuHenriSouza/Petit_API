@@ -9,11 +9,9 @@ export const create = async (payment: Omit<IPayment, 'id' | 'created_at' | 'upda
             .returning('id');
 
         if (typeof result === 'object') {
-            await Knex(ETableNames.stocks).insert({ prod_id: result.id, stock: 0 });
             return result.id;
 
         } else if (typeof result === 'number') {
-            await Knex(ETableNames.stocks).insert({ prod_id: result, stock: 0 });
             return result;
         }
 
