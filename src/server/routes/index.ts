@@ -63,6 +63,7 @@ router.get('/cashoutflow/:id', ensureAuthenticated, CashOutflowController.getByI
 router.put('/cashoutflow/:id', ensureAuthenticated, CashOutflowController.updateByIdValidation, CashOutflowController.updateById);
 router.get('/cashoutflow/all/:id', ensureAuthenticated, CashOutflowController.getAllValidation, CashOutflowController.getAllById);
 router.get('/cashoutflow/total/:id', ensureAuthenticated, CashOutflowController.getTotalByIdValidation, CashOutflowController.getTotalById);
+router.post('/cashoutflow/edit/:id', ensureAuthenticated, ensureAdmin, CashOutflowController.editByIdValidation, CashOutflowController.editById);
 // router.delete('/cashoutflow/:id',ensureAuthenticated, CashOutflowController.deleteByIdValidation, CashOutflowController.deleteById);
 
 
@@ -73,7 +74,7 @@ router.post('/sale', ensureAuthenticated, SaleDetailController.createValidation,
 router.get('/sale/all', ensureAuthenticated, SaleDetailController.getSalesValidation, SaleDetailController.getSales);
 router.get('/sale/raw/:id', ensureAuthenticated, SaleDetailController.getByIdValidation, SaleDetailController.getById);
 router.put('/sale/:id', ensureAuthenticated, SaleDetailController.updateByIdValidation, SaleDetailController.updateById);
-router.delete('/sale/:id',ensureAuthenticated, SaleDetailController.cancelSaleValidation, SaleDetailController.cancelSale);
+router.delete('/sale/:id', ensureAuthenticated, SaleDetailController.cancelSaleValidation, SaleDetailController.cancelSale);
 router.get('/sale/all/:id', ensureAuthenticated, SaleDetailController.getAllByIdValidation, SaleDetailController.getAllById);
 router.get('/sale/fincash/:id', ensureAuthenticated, SaleDetailController.getSalesByFincashValidation, SaleDetailController.getSalesByFincash);
 router.get('/sale/complete/:id', ensureAuthenticated, ensureAdmin, SaleDetailController.getAllByFincashValidation, SaleDetailController.getAllByFincash);
