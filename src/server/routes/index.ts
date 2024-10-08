@@ -2,6 +2,7 @@ import {
     UserController,
     ProductController,
     FincashController,
+    PaymentController,
     SupplierController,
     ValidityController,
     SaleDetailController,
@@ -11,7 +12,6 @@ import { Router } from 'express';
 import { StockController } from '../controllers/Stock';
 import { ProdGroupController } from '../controllers/ProductGroup';
 import { ensureAuthenticated, ensureAdmin } from '../shared/middleware';
-import { PaymentController } from '../controllers/Payment';
 
 const router = Router();
 
@@ -63,7 +63,7 @@ router.get('/cashoutflow/:id', ensureAuthenticated, CashOutflowController.getByI
 router.put('/cashoutflow/:id', ensureAuthenticated, CashOutflowController.updateByIdValidation, CashOutflowController.updateById);
 router.get('/cashoutflow/all/:id', ensureAuthenticated, CashOutflowController.getAllValidation, CashOutflowController.getAllById);
 router.get('/cashoutflow/total/:id', ensureAuthenticated, CashOutflowController.getTotalByIdValidation, CashOutflowController.getTotalById);
-router.post('/cashoutflow/edit/:id', ensureAuthenticated, ensureAdmin, CashOutflowController.editByIdValidation, CashOutflowController.editById);
+router.post('/cashoutflow/edit', ensureAuthenticated, ensureAdmin, CashOutflowController.editByIdValidation, CashOutflowController.editById);
 // router.delete('/cashoutflow/:id',ensureAuthenticated, CashOutflowController.deleteByIdValidation, CashOutflowController.deleteById);
 
 

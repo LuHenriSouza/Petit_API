@@ -1,5 +1,6 @@
 import * as create from './Create';
 import * as getById from './GetById';
+import * as editById from './EditById';
 import * as getAllById from './GetAllById';
 import * as updateById from './UpdateById';
 import * as getTotalById from './GetTotalById';
@@ -9,10 +10,11 @@ import * as getTotalById from './GetTotalById';
 export const CashOutflowController = {
     ...create,
     ...getById,
+    ...editById,
     ...getAllById,
     ...updateById,
     ...getTotalById,
     // ...deleteById,
     // ...finish,
-    
+
 };

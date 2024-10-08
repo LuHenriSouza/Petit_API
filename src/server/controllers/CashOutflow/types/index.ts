@@ -1,20 +1,31 @@
-import { ICashOutflow } from '../../../database/models';
+export interface IBodyOutflow {
+    type: string;
+    value: number;
+    desc?: string | null;
+    supplier_id?: number | null;
+}
 
 interface IBodyDelete {
     type: 'delete';
     content: {
-        id: number;
+        outflow_id: number;
     };
 }
 
 interface IBodyUpdate {
     type: 'update';
-    content: Omit<ICashOutflow, 'id' | 'fincash_id' | 'created_at' | 'updated_at'>;
+    content: {
+        outflow_id: number;
+        body: IBodyOutflow;
+    };
 }
 
 interface IBodyAdd {
     type: 'add';
-    content: Omit<ICashOutflow, 'id' | 'created_at' | 'updated_at'>;
+    content: {
+        fincash_id: number;
+        body: IBodyOutflow;
+    };
 }
 
 export type TEditBodyProps = IBodyDelete | IBodyUpdate | IBodyAdd;
