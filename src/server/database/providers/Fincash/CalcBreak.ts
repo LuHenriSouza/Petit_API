@@ -43,7 +43,7 @@ export const calcBreak = async (cardValue: number, fincash_id: number): Promise<
 };
 
 
-const getBreak = async (fincash: IFincash, cardValue: number): Promise<{ realBreak: number, invoicing: number } | Error> => {
+export const getBreak = async (fincash: IFincash, cardValue: number): Promise<{ realBreak: number, invoicing: number } | Error> => {
     if ((fincash.finalValue || fincash.finalValue == null) && (fincash.totalValue || fincash.totalValue == null)) {
         if (fincash.finalValue == null) fincash.finalValue = 0;
         if (fincash.totalValue == null) fincash.totalValue = 0;

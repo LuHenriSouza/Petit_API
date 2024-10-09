@@ -20,7 +20,7 @@ const bodyValidation: yup.Schema<IBodyProps> = yup.object().shape({
     finalValue: yup.number().required()
 });
 
-export const updateByIdValidation = validation({
+export const finishValidation = validation({
     params: paramsValidation,
     body: bodyValidation,
 });

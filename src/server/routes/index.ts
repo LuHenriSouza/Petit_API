@@ -2,6 +2,7 @@ import {
     UserController,
     ProductController,
     FincashController,
+    PaymentController,
     SupplierController,
     ValidityController,
     SaleDetailController,
@@ -11,7 +12,6 @@ import { Router } from 'express';
 import { StockController } from '../controllers/Stock';
 import { ProdGroupController } from '../controllers/ProductGroup';
 import { ensureAuthenticated, ensureAdmin } from '../shared/middleware';
-import { PaymentController } from '../controllers/Payment';
 
 const router = Router();
 
@@ -46,14 +46,14 @@ router.get('/data/month/current', ensureAuthenticated, ensureAdmin, FincashContr
 router.get('/fincash', ensureAuthenticated, FincashController.getAllValidation, FincashController.getAll);
 router.post('/fincash', ensureAuthenticated, FincashController.createValidation, FincashController.create);
 router.get('/fincash/:id', ensureAuthenticated, FincashController.getByIdValidation, FincashController.getById);
-router.put('/fincash/finish/:id', ensureAuthenticated, FincashController.updateByIdValidation, FincashController.finish);
+router.put('/fincash/finish/:id', ensureAuthenticated, FincashController.finishValidation, FincashController.finish);
+router.put('/fincash/:id',ensureAuthenticated, ensureAdmin, FincashController.updateByIdValidation, FincashController.updateById);
 router.get('/data', ensureAuthenticated, ensureAdmin, FincashController.getDataByDateValidation, FincashController.getDataByDate); //DASHBOARD GRAPH
 router.put('/fincash/obs/:id', ensureAuthenticated, ensureAdmin, FincashController.updateObsValidation, FincashController.updateObs);
 router.delete('/fincash/:id', ensureAuthenticated, ensureAdmin, FincashController.deleteByIdValidation, FincashController.deleteById);
 router.post('/fincash/addcard/:id', ensureAuthenticated, ensureAdmin, FincashController.calcBreakValidation, FincashController.calcBreak);
 router.post('/fincash/data/:id', ensureAuthenticated, ensureAdmin, FincashController.getDataByIdValidation, FincashController.getDataById);
 router.get('/total-value/fincash/:id', ensureAuthenticated, FincashController.getTotalByFincashValidation, FincashController.getTotalByFincash);
-// router.put('/fincash/:id',ensureAuthenticated, FincashController.updateByIdValidation, FincashController.updateById);
 
 
 
@@ -63,6 +63,7 @@ router.get('/cashoutflow/:id', ensureAuthenticated, CashOutflowController.getByI
 router.put('/cashoutflow/:id', ensureAuthenticated, CashOutflowController.updateByIdValidation, CashOutflowController.updateById);
 router.get('/cashoutflow/all/:id', ensureAuthenticated, CashOutflowController.getAllValidation, CashOutflowController.getAllById);
 router.get('/cashoutflow/total/:id', ensureAuthenticated, CashOutflowController.getTotalByIdValidation, CashOutflowController.getTotalById);
+router.post('/cashoutflow/edit', ensureAuthenticated, ensureAdmin, CashOutflowController.editByIdValidation, CashOutflowController.editById);
 // router.delete('/cashoutflow/:id',ensureAuthenticated, CashOutflowController.deleteByIdValidation, CashOutflowController.deleteById);
 
 
@@ -73,7 +74,7 @@ router.post('/sale', ensureAuthenticated, SaleDetailController.createValidation,
 router.get('/sale/all', ensureAuthenticated, SaleDetailController.getSalesValidation, SaleDetailController.getSales);
 router.get('/sale/raw/:id', ensureAuthenticated, SaleDetailController.getByIdValidation, SaleDetailController.getById);
 router.put('/sale/:id', ensureAuthenticated, SaleDetailController.updateByIdValidation, SaleDetailController.updateById);
-router.delete('/sale/:id',ensureAuthenticated, SaleDetailController.cancelSaleValidation, SaleDetailController.cancelSale);
+router.delete('/sale/:id', ensureAuthenticated, SaleDetailController.cancelSaleValidation, SaleDetailController.cancelSale);
 router.get('/sale/all/:id', ensureAuthenticated, SaleDetailController.getAllByIdValidation, SaleDetailController.getAllById);
 router.get('/sale/fincash/:id', ensureAuthenticated, SaleDetailController.getSalesByFincashValidation, SaleDetailController.getSalesByFincash);
 router.get('/sale/complete/:id', ensureAuthenticated, ensureAdmin, SaleDetailController.getAllByFincashValidation, SaleDetailController.getAllByFincash);
