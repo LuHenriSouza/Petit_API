@@ -14,9 +14,12 @@ export const getAll = async (page: number, limit: number): Promise<IResponse[] |
                 `${ETableNames.suppliers}.name`,
                 `${ETableNames.payments}.*`,
             )
+            .orderBy([
+                { column: 'expiration', order: 'asc' },
+                { column: `${ETableNames.payments}.id`, order: 'asc' } // Secondary sort by ID
+            ])
             .offset((page - 1) * limit)
-            .limit(limit)
-            .orderBy('expiration', 'asc');
+            .limit(limit);
 
         return result;
     } catch (e) {
