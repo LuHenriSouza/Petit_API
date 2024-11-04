@@ -29,7 +29,6 @@ const bodyValidation: yup.Schema<OrderByObj> = yup.object().shape({
     column: yup.string().oneOf(Object.values(EColumnsOrderBy)).required(),
     order: yup.string().oneOf(['asc', 'desc']).required(),
     sectors: yup.array().of(yup.number().required()).required(),
-    grou_id: yup.number().moreThan(0).nullable(),
 });
 
 const queryValidation: yup.Schema<IQueryProps> = yup.object().shape({
