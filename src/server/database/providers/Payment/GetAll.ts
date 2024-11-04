@@ -6,7 +6,15 @@ interface IResponse extends IPayment {
     name: string,
 }
 
-export const getAll = async (page: number, limit: number): Promise<IResponse[] | Error> => {
+type TColumnsOrderBy = 'expiration' | 'created_at';
+
+export interface OrderByObj {
+    column: TColumnsOrderBy;
+    order: 'asc' | 'desc';
+    supplier_id?: number;
+}
+
+export const getAll = async (page: number, limit: number, orderBy: OrderByObj): Promise<IResponse[] | Error> => {
     try {
         const result = await Knex(ETableNames.payments)
             .join(ETableNames.suppliers, `${ETableNames.payments}.supplier_id`, `${ETableNames.suppliers}.id`)
@@ -14,9 +22,17 @@ export const getAll = async (page: number, limit: number): Promise<IResponse[] |
                 `${ETableNames.suppliers}.name`,
                 `${ETableNames.payments}.*`,
             )
+            .where((builder) => {
+                if (orderBy.supplier_id) {
+                    builder.where(`${ETableNames.payments}.supplier_id`, orderBy.supplier_id);
+                }
+            })
+            .orderBy([
+                { column: orderBy.column, order: orderBy.order },
+                { column: `${ETableNames.payments}.id`, order: 'asc' } // Secondary sort by ID
+            ])
             .offset((page - 1) * limit)
-            .limit(limit)
-            .orderBy('expiration', 'asc');
+            .limit(limit);
 
         return result;
     } catch (e) {
