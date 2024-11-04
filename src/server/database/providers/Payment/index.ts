@@ -3,7 +3,7 @@ import * as create from './Create';
 import * as getAll from './GetAll';
 import * as getById from './GetById';
 import * as deleteById from './DeleteById';
-import * as getTotalByDate from './GetTotalByDate';
+import * as getTotalByDate from './getTotalByDate';
 
 export const PaymentProvider = {
     ...count,
