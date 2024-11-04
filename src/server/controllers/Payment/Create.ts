@@ -9,7 +9,7 @@ import { PaymentProvider } from '../../database/providers/Payment';
 interface IBodyProps extends Omit<IPayment, 'id' | 'created_at' | 'updated_at' | 'value' | 'expiration'> { }
 
 const bodyValidation: yup.Schema<IBodyProps> = yup.object().shape({
-    code: yup.string().required().min(47).max(47),
+    code: yup.string().required().min(47).max(47).matches(/^\d+$/, 'O código deve conter apenas números'),
     supplier_id: yup.number().required().min(0),
     desc: yup.string(),
 });
