@@ -127,7 +127,7 @@ router.delete('/validity/:id', ensureAuthenticated, ValidityController.deleteByI
 
 
 // PAYMENTS
-router.get('/payment', PaymentController.getAllValidation, PaymentController.getAll);
+router.post('/payment/get', PaymentController.getAllValidation, PaymentController.getAll);
 router.get('/payment/:id', PaymentController.getByIdValidation, PaymentController.getById);
 router.post('/payment', PaymentController.createValidation, PaymentController.create);
 router.delete('/payment/:id', PaymentController.deleteByIdValidation, PaymentController.deleteById);

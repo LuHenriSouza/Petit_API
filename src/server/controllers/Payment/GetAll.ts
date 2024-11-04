@@ -3,6 +3,7 @@ import * as yup from 'yup';
 import { validation } from '../../shared/middleware';
 import { PaymentProvider } from '../../database/providers/Payment';
 import { StatusCodes } from 'http-status-codes';
+import { OrderByObj } from '../../database/providers/Payment/GetAll';
 
 // ENV
 const DEFAULT_PAGE = 1;
@@ -18,13 +19,20 @@ const queryValidation: yup.Schema<IQueryProps> = yup.object().shape({
     limit: yup.number().moreThan(0),
 });
 
-export const getAllValidation = validation({
-    query: queryValidation,
+
+const bodyValidation: yup.Schema<OrderByObj> = yup.object().shape({
+    column: yup.string().oneOf(['expiration', 'created_at']).required(),
+    order: yup.string().oneOf(['asc', 'desc']).required(),
 });
 
-export const getAll: RequestHandler = async (req: Request<{}, {}, {}, IQueryProps>, res: Response) => {
-    const result = await PaymentProvider.getAll(req.query.page || DEFAULT_PAGE, req.query.limit || DEFAULT_LIMIT);
-    const count = await PaymentProvider.count();
+export const getAllValidation = validation({
+    query: queryValidation,
+    body: bodyValidation,
+});
+
+export const getAll: RequestHandler = async (req: Request<{}, {}, OrderByObj, IQueryProps>, res: Response) => {
+    const result = await PaymentProvider.getAll(req.query.page || DEFAULT_PAGE, req.query.limit || DEFAULT_LIMIT, req.body);
+    const count = await PaymentProvider.count(req.body.supplier_id);
 
     if (result instanceof Error) {
         return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
