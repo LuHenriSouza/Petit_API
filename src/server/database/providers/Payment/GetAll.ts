@@ -12,6 +12,10 @@ export interface OrderByObj {
     column: TColumnsOrderBy;
     order: 'asc' | 'desc';
     supplier_id?: number;
+    show?: {
+        PAID?: boolean,
+        EXPIRED?: boolean,
+    };
 }
 
 export const getAll = async (page: number, limit: number, orderBy: OrderByObj): Promise<IResponse[] | Error> => {
@@ -25,6 +29,18 @@ export const getAll = async (page: number, limit: number, orderBy: OrderByObj): 
             .where((builder) => {
                 if (orderBy.supplier_id) {
                     builder.where(`${ETableNames.payments}.supplier_id`, orderBy.supplier_id);
+                }
+                if (!orderBy.show) {
+                    builder.where(`${ETableNames.payments}.paid`, null);
+                    builder.where(`${ETableNames.payments}.expiration`, '>=', new Date());
+                }
+                else {
+                    if (!orderBy.show.PAID) {
+                        builder.where(`${ETableNames.payments}.paid`, null);
+                    }
+                    if (!orderBy.show.EXPIRED) {
+                        builder.where(`${ETableNames.payments}.expiration`, '>=', new Date());
+                    }
                 }
             })
             .orderBy([
