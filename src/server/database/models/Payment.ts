@@ -5,6 +5,7 @@ export interface IPayment {
     expiration: Date,
     value: number,
     desc?: string,
+    paid?: Date,
     created_at: Date,
     updated_at: Date,
 }

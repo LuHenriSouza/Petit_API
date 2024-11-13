@@ -23,6 +23,11 @@ const queryValidation: yup.Schema<IQueryProps> = yup.object().shape({
 const bodyValidation: yup.Schema<OrderByObj> = yup.object().shape({
     column: yup.string().oneOf(['expiration', 'created_at']).required(),
     order: yup.string().oneOf(['asc', 'desc']).required(),
+    supplier_id: yup.number(),
+    show: yup.object().shape({
+        PAID: yup.boolean(),
+        EXPIRED: yup.boolean(),
+    }),
 });
 
 export const getAllValidation = validation({
@@ -32,7 +37,7 @@ export const getAllValidation = validation({
 
 export const getAll: RequestHandler = async (req: Request<{}, {}, OrderByObj, IQueryProps>, res: Response) => {
     const result = await PaymentProvider.getAll(req.query.page || DEFAULT_PAGE, req.query.limit || DEFAULT_LIMIT, req.body);
-    const count = await PaymentProvider.count(req.body.supplier_id);
+    const count = await PaymentProvider.count(req.body);
 
     if (result instanceof Error) {
         return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
